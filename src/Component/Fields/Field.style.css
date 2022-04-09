@@ -1,0 +1,62 @@
+.inputField-header {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    max-width: 272px;
+    width: 100%;
+}
+
+.inputField-body {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.inputField-bottom {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    max-width: 272px;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.required-field::after {
+    content: "*";
+    color: red;
+}
+
+input {
+    outline: none;
+    border: 1px solid;
+}
+
+input:focus {
+    outline: none;
+    border: 1px solid #0071f9;
+}
+
+input[type=text] {
+    height: 28px;
+    border-radius: 3px;
+}
+
+input[type=email] {
+    height: 28px;
+    border-radius: 3px;
+}
+
+input[type=password] {
+    height: 28px;
+    border-radius: 3px;
+}
+
+input[type=button] {
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    color: #fff;
+    background-color: #0071f9;
+}
