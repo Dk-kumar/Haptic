@@ -1,5 +1,5 @@
 import React from "react";
-import './Field.style.css'
+import './fieldStyle.css'
 
 const InputField = ({ value, label, name, className, required, placeholder, type, onChange }) => {
 

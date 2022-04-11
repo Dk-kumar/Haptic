@@ -1,9 +1,8 @@
 import React from "react";
-import "./Field.style.css";
 import SignUpForm from "./Login Module/SignUp/index";
 
-const App = () => {
+const AppRouter = () => {
   return <SignUpForm></SignUpForm>;
 };
 
-export default App;
+export default AppRouter;

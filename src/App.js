@@ -1,8 +1,8 @@
-import App from "./Container/app";
+import AppRouter from "./Container/app";
 import "./App.css";
 
 function App() {
-  return <App />;
+  return <AppRouter />;
 }
 
 export default App;

@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import InputField from "../../../Component/Fields";
 import { visibilityIcon, visibilityOffIcon } from "../../../Shared/Icons";
 import { Values } from "../../../Constants";
-("../../../Constants");
-import "./registrationForm.style.css";
+import "./signUpForm.style.css";
 
 const SignUpForm = () => {
   let initialState = [
