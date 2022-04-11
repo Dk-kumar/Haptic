@@ -1,10 +1,8 @@
-import AddProductForm from "./Component/Form/registrationForm.component"
-import './App.css';
+import App from "./Container/app";
+import "./App.css";
 
 function App() {
-  return (
-    <AddProductForm />
-  );
+  return <App />;
 }
 
 export default App;
