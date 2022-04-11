@@ -78,3 +78,64 @@
 .form-submit {
   margin-top: 1rem;
 }
+
+@media (min-width: 360px) and (max-width: 767px) {
+    .header-container {
+      padding: 3rem 2rem 0;
+    }
+    .form-wrapper {
+      padding: 2rem;
+    }
+    .form-container {
+      width: 100%;
+      margin: 0;
+      border-radius: 0px;
+    }
+    .form-header, .form-bottom {
+      grid-template-columns: none;
+    }
+    .password-wrapper .visibility-icon {
+      right: 7px;
+    }
+    .email-wrapper .inputField-checkbox {
+      bottom: 5px;
+      right: 8px;
+    }
+    .email-description {
+      float: left;
+    }
+    .phone-wrapper .inputField-checkbox {
+      bottom: 36px;
+      right: 8px;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .header-container {
+      padding: 1rem 3rem 0;
+    }
+    .form-container {
+      width: 100%;
+    }
+    .form-header, .form-bottom {
+      gap: 12px;
+    }
+    .inputField-header, .inputField-bottom {
+      max-width: unset;
+    }
+    .inputField-header input[type=text] {
+      width: 95%;
+    }
+    .inputField-bottom input[type=text], .inputField-bottom input[type=password] {
+      width: 95%;
+    }
+    .email-wrapper .inputField-checkbox {
+      right: 8px;
+    }
+    .email-description {
+      float: left;
+    }
+    .phone-wrapper .inputField-checkbox {
+      right: 20px;
+    }
+  }
+  

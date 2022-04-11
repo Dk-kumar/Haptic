@@ -17,7 +17,6 @@ const AddProductForm = () => {
     confirmPassword: ''
   }]
   const [inputValue, setInputValue] = useState(initialState);
-  let [inputType, setInputType] = useState("password");
   const { suffix, title, firstName, lastName, email, userName, countryCode, phoneNumber, password, confirmPassword } = inputValue;
 
   const handleChange = (e) => {
@@ -27,12 +26,6 @@ const AddProductForm = () => {
       [name]: value,
     }));
     console.log(inputValue);
-  };
-
-  const handleInputType = () => {
-    setInputType((prev) => {
-      prev === "password" ? (inputType = "text") : (inputType = "password");
-    });
   };
 
   const formHeader = () => {
@@ -156,7 +149,7 @@ const AddProductForm = () => {
 
             <div className="password-wrapper">
               <InputField
-                type={inputType}
+                type="password"
                 value={password}
                 placeholder=""
                 label="Password"
@@ -165,18 +158,15 @@ const AddProductForm = () => {
                 required={true}
                 onChange={handleChange}
               />
-              <span
+              <i
                 className="visibility-icon"
-                onClick={() => handleInputType()}
               >
-                {inputType === "password"
-                  ? visibilityOffIcon()
-                  : visibilityIcon()}
-              </span>
+                {visibilityOffIcon()}
+              </i>
             </div>
             <div className="password-wrapper">
               <InputField
-                type={inputType}
+                type="password"
                 value={confirmPassword}
                 placeholder=""
                 label="Confirm Password"
@@ -185,14 +175,11 @@ const AddProductForm = () => {
                 required={true}
                 onChange={handleChange}
               />
-              <span
+              <i
                 className="visibility-icon"
-                onClick={() => handleInputType()}
               >
-                {inputType === "password"
-                  ? visibilityOffIcon()
-                  : visibilityIcon()}
-              </span>
+                {visibilityOffIcon()}
+              </i>
             </div>
           </div>
           <div className="btn-submit">

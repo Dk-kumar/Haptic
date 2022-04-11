@@ -60,3 +60,9 @@ input[type=button] {
     color: #fff;
     background-color: #0071f9;
 }
+
+@media (min-width: 360px) and (max-width: 767px) {
+    .inputField-header, .inputField-bottom {
+        max-width: unset;
+    }
+}
