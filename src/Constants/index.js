@@ -13,9 +13,13 @@ export const Values = {
   ConfirmPassword: "Confirm Password",
   CreateAccount: "Create account",
   UserName: "Username",
-  Email: "Email",
   FirstName: "Firstname",
   LastName: "Lastname",
   Title: "Title",
   Suffix: "Suffix",
+  PasswordPlaceholder: "Password(8-24 char)",
+  RepeatPassowrdPlaceholder: "Repeat Password",
+  GoogleLogin: "Sign Up with Google",
+  FaceBookLogin: "Sign Up with Facebook",
+  GitHubLogin: "Sign Up with Github"
 };

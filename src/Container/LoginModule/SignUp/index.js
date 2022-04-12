@@ -4,6 +4,12 @@ import { visibilityIcon, visibilityOffIcon } from "../../../Shared/Icons";
 import { Values } from "../../../Constants";
 import "./signUpForm.style.css";
 
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+
 const SignUpForm = () => {
   let initialState = [
     {
@@ -20,6 +26,7 @@ const SignUpForm = () => {
     },
   ];
   const [inputValue, setInputValue] = useState(initialState);
+  let [isDisabled, setDisabled] = useState(true)
   const {
     suffix,
     title,
@@ -46,9 +53,34 @@ const SignUpForm = () => {
     return (
       <div className="header-container">
         <h2>{Values.SignUp}</h2>
-        <span>
+        <span className="header-content">
           {Values.ExistingCustomer} <a href="">{Values.SignUp}</a>
         </span>
+      </div>
+    );
+  };
+
+  const socialLogin = () => {
+    return (
+      <div className="socialLogin-container">
+        <InputField
+          type="button"
+          value={Values.GoogleLogin}
+          placeholder=""
+          className="google-login"
+        />
+        <InputField
+          type="button"
+          value={Values.FaceBookLogin}
+          placeholder=""
+          className="google-login"
+        />
+        <InputField
+          type="button"
+          value={Values.GitHubLogin}
+          placeholder=""
+          className="github-login"
+        />
       </div>
     );
   };
@@ -62,7 +94,7 @@ const SignUpForm = () => {
             <InputField
               type="text"
               value={suffix}
-              placeholder=""
+              placeholder={Values.Suffix}
               label={Values.Suffix}
               name={Values.Suffix}
               className="inputField-header"
@@ -71,7 +103,7 @@ const SignUpForm = () => {
             <InputField
               type="text"
               value={title}
-              placeholder=""
+              placeholder={Values.Title}
               label={Values.Title}
               name={Values.Title}
               className="inputField-header"
@@ -80,7 +112,7 @@ const SignUpForm = () => {
             <InputField
               type="text"
               value={firstName}
-              placeholder=""
+              placeholder={Values.FirstName}
               label={Values.FirstName}
               name={Values.FirstName}
               className="inputField-header"
@@ -89,7 +121,7 @@ const SignUpForm = () => {
             <InputField
               type="text"
               value={lastName}
-              placeholder=""
+              placeholder={Values.LastName}
               label={Values.LastName}
               name={Values.LastName}
               className="inputField-header"
@@ -101,7 +133,7 @@ const SignUpForm = () => {
               <InputField
                 type="email"
                 value={email}
-                placeholder=""
+                placeholder={Values.Email}
                 label={Values.Email}
                 name={Values.Email}
                 className="inputField-body"
@@ -121,7 +153,7 @@ const SignUpForm = () => {
             <InputField
               type="text"
               value={userName}
-              placeholder=""
+              placeholder={Values.UserName}
               label={Values.UserName}
               name="Username"
               className="inputField-body"
@@ -140,32 +172,51 @@ const SignUpForm = () => {
               required={true}
               onChange={handleChange}
             />
-            <div className="phone-wrapper">
-              <InputField
-                type="text"
-                value={phoneNumber}
-                placeholder=""
-                label={Values.PhoneNumber}
-                name="phoneNumber"
-                className="inputField-bottom"
-                onChange={handleChange}
-              />
-              <InputField
-                type="checkbox"
-                name={Values.Email}
-                className="inputField-checkbox"
-                onChange={handleChange}
-              />
-              <p className="phone-description">
-                {Values.PholePredefinedOption}
-              </p>
+            <div className="code-wrapper">
+              <Box
+                sx={{ m: 1, flexBasis: "22%", margin: "1rem 0rem 0rem 0rem" }}
+                size="small"
+              >
+                <FormControl fullWidth>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={countryCode}
+                    label=""
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={+91}>+91</MenuItem>
+                    <MenuItem value={+862}>+862</MenuItem>
+                    <MenuItem value={+99}>+99</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+              <div className="phone-wrapper">
+                <InputField
+                  type="text"
+                  value={phoneNumber}
+                  placeholder={Values.PhoneNumber}
+                  label={Values.PhoneNumber}
+                  name="phoneNumber"
+                  className="inputField-bottom"
+                  onChange={handleChange}
+                />
+                <InputField
+                  type="checkbox"
+                  name={Values.Email}
+                  className="inputField-checkbox"
+                  onChange={handleChange}
+                />
+                <p className="phone-description">
+                  {Values.PholePredefinedOption}
+                </p>
+              </div>
             </div>
-
             <div className="password-wrapper">
               <InputField
                 type="password"
                 value={password}
-                placeholder=""
+                placeholder={Values.PasswordPlaceholder}
                 label={Values.Password}
                 name="password"
                 className="inputField-bottom"
@@ -178,7 +229,7 @@ const SignUpForm = () => {
               <InputField
                 type="password"
                 value={confirmPassword}
-                placeholder=""
+                placeholder={Values.RepeatPassowrdPlaceholder}
                 label={Values.ConfirmPassword}
                 name="confirmPassword"
                 className="inputField-bottom"
@@ -189,13 +240,14 @@ const SignUpForm = () => {
             </div>
           </div>
           <div className="btn-submit">
-            <InputField
-              type="button"
-              value={Values.CreateAccount}
-              placeholder=""
-              className="form-submit"
-            />
+            <button type="submit" disabled={isDisabled} className={isDisabled ? "disabled-button": "form-submit"}>{Values.CreateAccount}</button>
           </div>
+          <div className="lines">
+            <div className="line-left"></div>
+            <span>OR</span>
+            <div className="line-right"></div>
+          </div>
+          {socialLogin()}
         </div>
       </form>
     </>
