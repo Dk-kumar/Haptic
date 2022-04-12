@@ -1,12 +1,13 @@
 export const Values = {
-  ExistingCustomer: "Already have an account?",
-  SignUp: "Sign up",
-  SignIn: "Sign in",
+  SignUpLink: "Don't have a account",
+  SignInLink: "have an account?",
+  SignUp: "Sign Up",
+  SignIn: "Sign In",
   EmailPredefinedOption:
     "Click the checkbox to use email us predefined sign in option",
   PholePredefinedOption:
     "Click the checkbox to use phone us predefined sign in option",
-  PhoneNumber: "Phone Number",
+  PhoneNumber: "Phone",
   CountryCode: "Country Code",
   Email: "Email",
   Password: "Password",

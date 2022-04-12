@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 import InputField from "../../../Component/Fields";
 import { visibilityIcon, visibilityOffIcon } from "../../../Shared/Icons";
 import { Values } from "../../../Constants";
-import "./signUpForm.style.css"
+import "./signUpForm.style.css";
 
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
@@ -25,7 +26,7 @@ const SignUpForm = () => {
     },
   ];
   const [inputValue, setInputValue] = useState(initialState);
-  let [isDisabled, setDisabled] = useState(true)
+  let [isDisabled, setDisabled] = useState(true);
   const {
     suffix,
     title,
@@ -53,7 +54,7 @@ const SignUpForm = () => {
       <div className="header-container">
         <h2>{Values.SignUp}</h2>
         <span className="header-content">
-          {Values.ExistingCustomer} <a href="">{Values.SignUp}</a>
+          {Values.SignInLink} <Link to='/signin'>{Values.SignIn}</Link>
         </span>
       </div>
     );
@@ -81,6 +82,14 @@ const SignUpForm = () => {
           className="github-login"
         />
       </div>
+    );
+  };
+
+  const siginInLink = () => {
+    return (
+      <span className="header-content">
+        {Values.SignInLink} <Link to='/signin'>{Values.SignIn}</Link>
+      </span>
     );
   };
 
@@ -187,6 +196,7 @@ const SignUpForm = () => {
                     <MenuItem value={+91}>+91</MenuItem>
                     <MenuItem value={+862}>+862</MenuItem>
                     <MenuItem value={+99}>+99</MenuItem>
+                    <MenuItem value={+7432}>+7432</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -239,7 +249,13 @@ const SignUpForm = () => {
             </div>
           </div>
           <div className="btn-submit">
-            <button type="submit" disabled={isDisabled} className={isDisabled ? "disabled-button": "form-submit"}>{Values.CreateAccount}</button>
+            <button
+              type="submit"
+              disabled={isDisabled}
+              className={isDisabled ? "disabled-button" : "form-submit"}
+            >
+              {Values.CreateAccount}
+            </button>
           </div>
           <div className="lines">
             <div className="line-left"></div>
@@ -248,6 +264,7 @@ const SignUpForm = () => {
           </div>
           {socialLogin()}
         </div>
+        <div className="signIn-link">{siginInLink()}</div>
       </form>
     </>
   );

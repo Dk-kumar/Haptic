@@ -112,6 +112,10 @@
   background-color: var(--button-color);
 }
 
+.signIn-link {
+  display: none;
+}
+
 @media (min-width: 250px) and (max-width: 350px) {
   .header-container {
     padding: 1rem;
@@ -253,6 +257,11 @@
     column-gap: 1rem;
     row-gap: 1rem;
   }
+  .signIn-link {
+    display: block;
+    text-align: center;
+    padding: 1rem 0rem 0rem 0rem;
+  }
 }
 
 @media (min-width: 360px) and (max-width: 767px) {
@@ -387,6 +396,12 @@
     flex-direction: column;
     column-gap: 1rem;
     row-gap: 1rem;
+  }
+
+  .signIn-link {
+    display: block;
+    text-align: center;
+    padding: 1rem 0rem 0rem 0rem;
   }
 }
 @media (min-width: 768px) and (max-width: 1024px) {
