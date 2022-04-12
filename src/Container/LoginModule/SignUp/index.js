@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import InputField from "../../../Component/Fields";
 import { visibilityIcon, visibilityOffIcon } from "../../../Shared/Icons";
 import { Values } from "../../../Constants";
-import "./signUpForm.style.css";
+import "./signUpForm.style.css"
 
 import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
@@ -174,7 +173,7 @@ const SignUpForm = () => {
             />
             <div className="code-wrapper">
               <Box
-                sx={{ m: 1, flexBasis: "22%", margin: "1rem 0rem 0rem 0rem" }}
+                sx={{ m: 1, flexBasis: "24%", margin: "1rem 0rem 0rem 0rem" }}
                 size="small"
               >
                 <FormControl fullWidth>

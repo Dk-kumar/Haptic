@@ -79,6 +79,25 @@ input::placeholder {
     /* padding-left: 8px; */
 }
 
+@media (min-width: 250px) and (max-width: 670px) {
+
+    input::placeholder {
+        color: var(--placeholder-color)
+    }
+
+    .inputField-header, .inputField-bottom {
+        max-width: unset;
+    }
+
+    label {
+        display: none;
+    }
+
+    input[type=button] {
+       width: 100%;
+    }
+}
+
 @media (min-width: 360px) and (max-width: 767px) {
 
     input::placeholder {

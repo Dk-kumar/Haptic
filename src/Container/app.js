@@ -1,5 +1,5 @@
 import React from "react";
-import SignUpForm from "./Login Module/SignUp/index";
+import SignUpForm from "./LoginModule/SignUp/index";
 
 const AppRouter = () => {
   return <SignUpForm></SignUpForm>;
