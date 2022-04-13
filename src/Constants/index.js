@@ -22,5 +22,9 @@ export const Values = {
   RepeatPassowrdPlaceholder: "Repeat Password",
   GoogleLogin: "Sign Up with Google",
   FaceBookLogin: "Sign Up with Facebook",
-  GitHubLogin: "Sign Up with Github"
+  GitHubLogin: "Sign Up with Github",
+
+  //Tooltip content
+  EmailTooltip: "Make sure your email is valid.",
+  MobileTooltip: "MX phone number must be 10 digits."
 };

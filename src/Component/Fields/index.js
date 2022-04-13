@@ -1,7 +1,7 @@
 import React from "react";
 import './fieldStyle.css'
 
-const InputField = ({ value, label, name, className, required, placeholder, type, onChange }) => {
+const InputField = ({ value, label, name, className, required, placeholder, type, onChange, onFocus }) => {
 
   return (
     <div className={className}>
@@ -13,6 +13,7 @@ const InputField = ({ value, label, name, className, required, placeholder, type
       className="form-control"
       placeholder={placeholder}
       onChange={onChange}
+      onFocus={onFocus ? (e) => onFocus(e) : null}
       required
     />
   </div>

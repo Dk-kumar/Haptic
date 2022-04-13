@@ -1,6 +1,7 @@
 :root {
     --button-color: #6757f6;
     --input-border-color: #c7c3c3;
+    --onfocus-input-border-color: #6757f6;
     --placeholder-color: rgb(88, 84, 84);
   }
 
@@ -39,9 +40,19 @@ input {
     border: 1px solid;
 }
 
-input:focus {
+input[type=text]:focus {
     outline: none;
-    border-color:  #0071f9;
+    border-color: var(--onfocus-input-border-color);
+}
+
+input[type=email]:focus {
+    outline: none;
+    border-color: var(--onfocus-input-border-color);
+}
+
+input[type=password]:focus {
+    outline: none;
+    border-color: var(--onfocus-input-border-color);
 }
 
 input[type=text] {
@@ -76,7 +87,6 @@ input[type=button] {
 
 input::placeholder {
     color: transparent;
-    /* padding-left: 8px; */
 }
 
 @media (min-width: 250px) and (max-width: 670px) {

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import InputField from "../../../Component/Fields";
 import { visibilityIcon, visibilityOffIcon } from "../../../Shared/Icons";
 import { Values } from "../../../Constants";
+import Tooltip from "../../../Component/SnackBar/tooltip/tooltip";
 import "./signUpForm.style.css";
 
+//Meterial UI components
 import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -27,6 +29,7 @@ const SignUpForm = () => {
   ];
   const [inputValue, setInputValue] = useState(initialState);
   let [isDisabled, setDisabled] = useState(true);
+  let [isShowTooltip, setTooltip] = useState("hidden");
   const {
     suffix,
     title,
@@ -49,12 +52,17 @@ const SignUpForm = () => {
     console.log(inputValue);
   };
 
+  const handleFocus = (e) => {
+    console.log(e)
+    setTooltip("visible");
+  };
+
   const formHeader = () => {
     return (
       <div className="header-container">
         <h2>{Values.SignUp}</h2>
         <span className="header-content">
-          {Values.SignInLink} <Link to='/signin'>{Values.SignIn}</Link>
+          {Values.SignInLink} <Link to="/signin">{Values.SignIn}</Link>
         </span>
       </div>
     );
@@ -88,7 +96,7 @@ const SignUpForm = () => {
   const siginInLink = () => {
     return (
       <span className="header-content">
-        {Values.SignInLink} <Link to='/signin'>{Values.SignIn}</Link>
+        {Values.SignInLink} <Link to="/signin">{Values.SignIn}</Link>
       </span>
     );
   };
@@ -138,6 +146,12 @@ const SignUpForm = () => {
           </div>
           <div className="form-body">
             <div className="email-wrapper">
+              <Tooltip
+                text={Values.EmailTooltip}
+                isVisibility={isShowTooltip}
+                cardWidth={"210px"}
+                bottom={"-2px"}
+              />
               <InputField
                 type="email"
                 value={email}
@@ -147,6 +161,7 @@ const SignUpForm = () => {
                 className="inputField-body"
                 required={true}
                 onChange={handleChange}
+                onFocus={handleFocus}
               />
               <InputField
                 type="checkbox"
@@ -201,6 +216,12 @@ const SignUpForm = () => {
                 </FormControl>
               </Box>
               <div className="phone-wrapper">
+                <Tooltip
+                  text={Values.MobileTooltip}
+                  isVisibility={isShowTooltip}
+                  bottom={"-20px"}
+                  cardWidth={140}
+                />
                 <InputField
                   type="text"
                   value={phoneNumber}
@@ -209,6 +230,7 @@ const SignUpForm = () => {
                   name="phoneNumber"
                   className="inputField-bottom"
                   onChange={handleChange}
+                  onFocus={handleFocus}
                 />
                 <InputField
                   type="checkbox"
