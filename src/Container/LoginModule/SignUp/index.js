@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 import InputField from "../../../Component/Fields";
 import { visibilityIcon, visibilityOffIcon } from "../../../Shared/Icons";
 import { Values } from "../../../Constants";
+import {
+  emailValidator,
+  phoneNumberValidator,
+  numberField
+} from "../../../Shared/Validator";
 import Tooltip from "../../../Component/SnackBar/tooltip/tooltip";
 import "./signUpForm.style.css";
 
@@ -19,29 +24,35 @@ const SignUpForm = () => {
       title: "",
       firstName: "",
       lastName: "",
-      email: "",
+      Email: "",
       userName: "",
       countryCode: "",
-      phoneNumber: "",
+      PhoneNumber: "",
       password: "",
       confirmPassword: "",
     },
   ];
+  let toolTipMessage = {
+    emailError: "hidden",
+    phoneNumberError: "hidden",
+  };
   const [inputValue, setInputValue] = useState(initialState);
   let [isDisabled, setDisabled] = useState(true);
-  let [isShowTooltip, setTooltip] = useState("hidden");
+  let [isShowTooltip, setTooltip] = useState(toolTipMessage);
   const {
     suffix,
     title,
     firstName,
     lastName,
-    email,
+    Email,
     userName,
     countryCode,
-    phoneNumber,
+    PhoneNumber,
     password,
     confirmPassword,
   } = inputValue;
+
+  const { emailError, phoneNumberError } = isShowTooltip;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,9 +63,31 @@ const SignUpForm = () => {
     console.log(inputValue);
   };
 
-  const handleFocus = (e) => {
-    console.log(e)
-    setTooltip("visible");
+  const handleValidation = (type) => {
+    const { Email, PhoneNumber } = inputValue;
+    if (type === Values.Email) {
+      if (!emailValidator(Email)) {
+        return setTooltip({
+          ...isShowTooltip,
+          emailError: "visible",
+        });
+      }
+    }
+
+    if (type === Values.PhoneNumber) {
+      if (!phoneNumberValidator(PhoneNumber)) {
+        return setTooltip({
+          ...isShowTooltip,
+          phoneNumberError: "visible",
+        });
+      }
+    }
+
+    setTooltip({
+      ...isShowTooltip,
+      emailError: "hidden",
+      phoneNumberError: "hidden",
+    });
   };
 
   const formHeader = () => {
@@ -148,20 +181,20 @@ const SignUpForm = () => {
             <div className="email-wrapper">
               <Tooltip
                 text={Values.EmailTooltip}
-                isVisibility={isShowTooltip}
+                isVisibility={emailError}
                 cardWidth={"210px"}
                 bottom={"-2px"}
               />
               <InputField
                 type="email"
-                value={email}
+                value={Email}
                 placeholder={Values.Email}
                 label={Values.Email}
                 name={Values.Email}
                 className="inputField-body"
                 required={true}
                 onChange={handleChange}
-                onFocus={handleFocus}
+                onBlur={() => handleValidation(Values.Email)}
               />
               <InputField
                 type="checkbox"
@@ -218,19 +251,20 @@ const SignUpForm = () => {
               <div className="phone-wrapper">
                 <Tooltip
                   text={Values.MobileTooltip}
-                  isVisibility={isShowTooltip}
+                  isVisibility={phoneNumberError}
                   bottom={"-20px"}
                   cardWidth={140}
                 />
                 <InputField
                   type="text"
-                  value={phoneNumber}
+                  value={PhoneNumber}
                   placeholder={Values.PhoneNumber}
                   label={Values.PhoneNumber}
-                  name="phoneNumber"
+                  name="PhoneNumber"
+                  length="10"
                   className="inputField-bottom"
                   onChange={handleChange}
-                  onFocus={handleFocus}
+                  onBlur={() => handleValidation(Values.PhoneNumber)}
                 />
                 <InputField
                   type="checkbox"

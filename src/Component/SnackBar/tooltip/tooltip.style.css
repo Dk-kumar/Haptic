@@ -24,3 +24,9 @@
     border-style: solid;
     border-color: #4d5b6d transparent transparent transparent;
   }
+
+@media only screen and (min-width:1024px){
+    .tooltip-container .tooltip-content p {
+        display: block;
+    }
+}
