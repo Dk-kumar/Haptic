@@ -85,7 +85,6 @@
 
 .form-submit {
   border: none;
-  width: 100%;
   padding: 12px;
   border-radius: 6px;
   color: #fff;
@@ -224,7 +223,6 @@
   .form-submit {
     margin: 3rem 0rem 2rem;
     text-align: center;
-    width: 100%;
   }
 
   .disabled-button {

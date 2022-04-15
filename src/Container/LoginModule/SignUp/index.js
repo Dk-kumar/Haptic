@@ -6,7 +6,7 @@ import { Values } from "../../../Constants";
 import {
   emailValidator,
   phoneNumberValidator,
-  numberField
+  formButtonEnable,
 } from "../../../Shared/Validator";
 import Tooltip from "../../../Component/SnackBar/tooltip/tooltip";
 import "./signUpForm.style.css";
@@ -18,20 +18,18 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 const SignUpForm = () => {
-  let initialState = [
-    {
-      suffix: "",
-      title: "",
-      firstName: "",
-      lastName: "",
-      Email: "",
-      userName: "",
-      countryCode: "",
-      PhoneNumber: "",
-      password: "",
-      confirmPassword: "",
-    },
-  ];
+  let initialState = {
+    Suffix: "",
+    Title: "",
+    Firstname: "",
+    Lastname: "",
+    Email: "",
+    Username: "",
+    CountryCode: "",
+    PhoneNumber: "",
+    Password: "",
+    ConfirmPassword: "",
+  };
   let toolTipMessage = {
     emailError: "hidden",
     phoneNumberError: "hidden",
@@ -40,26 +38,39 @@ const SignUpForm = () => {
   let [isDisabled, setDisabled] = useState(true);
   let [isShowTooltip, setTooltip] = useState(toolTipMessage);
   const {
-    suffix,
-    title,
-    firstName,
-    lastName,
+    Suffix,
+    Title,
+    Firstname,
+    Lastname,
     Email,
-    userName,
-    countryCode,
+    Username,
+    CountryCode,
     PhoneNumber,
-    password,
-    confirmPassword,
+    Password,
+    ConfirmPassword,
   } = inputValue;
 
   const { emailError, phoneNumberError } = isShowTooltip;
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setInputValue((prev) => ({
-      ...prev,
+    let { name, value } = e.target;
+    if (name === "PhoneNumber") {
+      if (!/^-?\d*$/.test(value)) {
+        value = "";
+      }
+    }
+    setInputValue({
+      ...inputValue,
       [name]: value,
-    }));
+    });
+    let showBtn = formButtonEnable(inputValue);
+    if (
+      showBtn === false &&
+      emailError === "hidden" &&
+      phoneNumberError === "hidden"
+    ) {
+      setDisabled(false);
+    }
     console.log(inputValue);
   };
 
@@ -142,7 +153,7 @@ const SignUpForm = () => {
           <div className="form-header">
             <InputField
               type="text"
-              value={suffix}
+              value={Suffix}
               placeholder={Values.Suffix}
               label={Values.Suffix}
               name={Values.Suffix}
@@ -151,7 +162,7 @@ const SignUpForm = () => {
             />
             <InputField
               type="text"
-              value={title}
+              value={Title}
               placeholder={Values.Title}
               label={Values.Title}
               name={Values.Title}
@@ -160,7 +171,7 @@ const SignUpForm = () => {
             />
             <InputField
               type="text"
-              value={firstName}
+              value={Firstname}
               placeholder={Values.FirstName}
               label={Values.FirstName}
               name={Values.FirstName}
@@ -169,7 +180,7 @@ const SignUpForm = () => {
             />
             <InputField
               type="text"
-              value={lastName}
+              value={Lastname}
               placeholder={Values.LastName}
               label={Values.LastName}
               name={Values.LastName}
@@ -208,7 +219,7 @@ const SignUpForm = () => {
             </div>
             <InputField
               type="text"
-              value={userName}
+              value={Username}
               placeholder={Values.UserName}
               label={Values.UserName}
               name="Username"
@@ -220,10 +231,10 @@ const SignUpForm = () => {
           <div className="form-bottom">
             <InputField
               type="text"
-              value={countryCode}
+              value={CountryCode}
               placeholder=""
               label={Values.CountryCode}
-              name="countryCode"
+              name="CountryCode"
               className="inputField-bottom"
               required={true}
               onChange={handleChange}
@@ -237,8 +248,9 @@ const SignUpForm = () => {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={countryCode}
+                    value={CountryCode}
                     label=""
+                    name="CountryCode"
                     onChange={handleChange}
                   >
                     <MenuItem value={+91}>+91</MenuItem>
@@ -280,10 +292,10 @@ const SignUpForm = () => {
             <div className="password-wrapper">
               <InputField
                 type="password"
-                value={password}
+                value={Password}
                 placeholder={Values.PasswordPlaceholder}
                 label={Values.Password}
-                name="password"
+                name="Password"
                 className="inputField-bottom"
                 required={true}
                 onChange={handleChange}
@@ -293,10 +305,10 @@ const SignUpForm = () => {
             <div className="password-wrapper">
               <InputField
                 type="password"
-                value={confirmPassword}
+                value={ConfirmPassword}
                 placeholder={Values.RepeatPassowrdPlaceholder}
                 label={Values.ConfirmPassword}
-                name="confirmPassword"
+                name="ConfirmPassword"
                 className="inputField-bottom"
                 required={true}
                 onChange={handleChange}
