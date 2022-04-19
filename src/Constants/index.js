@@ -26,5 +26,13 @@ export const Values = {
 
   //Tooltip content
   EmailTooltip: "Make sure your email is valid.",
-  MobileTooltip: "MX phone number must be 10 digits."
+  MobileTooltip: "MX phone number must be 10 digits.",
+  MobileValidationError: "Make sure your number is valid",
+  Required: "Field is required",
+
+  //Name
+  NameCountryCode: "CountryCode",
+  NamePhoneNumber: "PhoneNumber",
+  NamePassword: "Password",
+  NameConfirmPassword: "ConfirmPassword"
 };

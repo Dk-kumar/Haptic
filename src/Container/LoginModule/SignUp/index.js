@@ -8,7 +8,6 @@ import {
   phoneNumberValidator,
   formButtonEnable,
 } from "../../../Shared/Validator";
-import Tooltip from "../../../Component/SnackBar/tooltip/tooltip";
 import "./signUpForm.style.css";
 
 //Meterial UI components
@@ -19,8 +18,8 @@ import Select from "@mui/material/Select";
 
 const SignUpForm = () => {
   let initialState = {
-    Suffix: "",
-    Title: "",
+    ...(window.innerWidth > 776 && {  Suffix: "",
+    Title: "", }),
     Firstname: "",
     Lastname: "",
     Email: "",
@@ -30,6 +29,12 @@ const SignUpForm = () => {
     Password: "",
     ConfirmPassword: "",
   };
+  let handelEyeIcon = {
+    inputTypePassword: "password",
+    inputTypeConfirmPassword: "password",
+    isVisiblePassword: false,
+    isVisibleConfirmPassword: false,
+  };
   let toolTipMessage = {
     emailError: "hidden",
     phoneNumberError: "hidden",
@@ -37,6 +42,8 @@ const SignUpForm = () => {
   const [inputValue, setInputValue] = useState(initialState);
   let [isDisabled, setDisabled] = useState(true);
   let [isShowTooltip, setTooltip] = useState(toolTipMessage);
+  let [toggleIcon, setToggleIcon] = useState(handelEyeIcon);
+  
   const {
     Suffix,
     Title,
@@ -51,13 +58,17 @@ const SignUpForm = () => {
   } = inputValue;
 
   const { emailError, phoneNumberError } = isShowTooltip;
+  const {
+    inputTypePassword,
+    inputTypeConfirmPassword,
+    isVisiblePassword,
+    isVisibleConfirmPassword,
+  } = toggleIcon;
 
   const handleChange = (e) => {
     let { name, value } = e.target;
     if (name === "PhoneNumber") {
-      if (!/^-?\d*$/.test(value)) {
-        value = "";
-      }
+      if (isNaN(value)) return false;
     }
     setInputValue({
       ...inputValue,
@@ -99,6 +110,38 @@ const SignUpForm = () => {
       emailError: "hidden",
       phoneNumberError: "hidden",
     });
+  };
+
+  const handelIcon = (field) => {
+    if (field === "password") {
+      if (inputTypePassword === "password") {
+        return setToggleIcon({
+          ...toggleIcon,
+          inputTypePassword: "text",
+          isVisiblePassword: true,
+        });
+      } else {
+        return setToggleIcon({
+          ...toggleIcon,
+          inputTypePassword: "password",
+          isVisiblePassword: false,
+        });
+      }
+    } else {
+      if (inputTypeConfirmPassword === "password") {
+        return setToggleIcon({
+          ...toggleIcon,
+          inputTypeConfirmPassword: "text",
+          isVisibleConfirmPassword: true,
+        });
+      } else {
+        return setToggleIcon({
+          ...toggleIcon,
+          inputTypeConfirmPassword: "password",
+          isVisibleConfirmPassword: false,
+        });
+      }
+    }
   };
 
   const formHeader = () => {
@@ -190,12 +233,6 @@ const SignUpForm = () => {
           </div>
           <div className="form-body">
             <div className="email-wrapper">
-              <Tooltip
-                text={Values.EmailTooltip}
-                isVisibility={emailError}
-                cardWidth={"210px"}
-                bottom={"-2px"}
-              />
               <InputField
                 type="email"
                 value={Email}
@@ -216,13 +253,21 @@ const SignUpForm = () => {
               <p className="email-description">
                 {Values.EmailPredefinedOption}
               </p>
+              <div className="error-message">
+                {emailError === "visible" && Email !== "" && (
+                  <span>{Values.EmailTooltip}</span>
+                )}
+                {emailError === "visible" && Email === "" && (
+                  <span>{Values.Required}</span>
+                )}
+              </div>
             </div>
             <InputField
               type="text"
               value={Username}
               placeholder={Values.UserName}
               label={Values.UserName}
-              name="Username"
+              name={Values.UserName}
               className="inputField-body"
               required={true}
               onChange={handleChange}
@@ -234,7 +279,7 @@ const SignUpForm = () => {
               value={CountryCode}
               placeholder=""
               label={Values.CountryCode}
-              name="CountryCode"
+              name={Values.NameCountryCode}
               className="inputField-bottom"
               required={true}
               onChange={handleChange}
@@ -250,7 +295,7 @@ const SignUpForm = () => {
                     id="demo-simple-select"
                     value={CountryCode}
                     label=""
-                    name="CountryCode"
+                    name={Values.NameCountryCode}
                     onChange={handleChange}
                   >
                     <MenuItem value={+91}>+91</MenuItem>
@@ -261,18 +306,12 @@ const SignUpForm = () => {
                 </FormControl>
               </Box>
               <div className="phone-wrapper">
-                <Tooltip
-                  text={Values.MobileTooltip}
-                  isVisibility={phoneNumberError}
-                  bottom={"-20px"}
-                  cardWidth={140}
-                />
                 <InputField
                   type="text"
                   value={PhoneNumber}
                   placeholder={Values.PhoneNumber}
                   label={Values.PhoneNumber}
-                  name="PhoneNumber"
+                  name={Values.NamePhoneNumber}
                   length="10"
                   className="inputField-bottom"
                   onChange={handleChange}
@@ -287,33 +326,53 @@ const SignUpForm = () => {
                 <p className="phone-description">
                   {Values.PholePredefinedOption}
                 </p>
+                <div className="error-message">
+                  {phoneNumberError === "visible" && PhoneNumber !== '' && (
+                    <span>{Values.MobileValidationError}</span>
+                  )}
+                  {phoneNumberError === "visible" && PhoneNumber === '' && (
+                  <span>{Values.Required}</span>
+                )}
+                </div>
               </div>
             </div>
             <div className="password-wrapper">
               <InputField
-                type="password"
+                type={inputTypePassword}
                 value={Password}
                 placeholder={Values.PasswordPlaceholder}
                 label={Values.Password}
-                name="Password"
+                name={Values.NamePassword}
                 className="inputField-bottom"
                 required={true}
                 onChange={handleChange}
               />
-              <i className="visibility-icon">{visibilityOffIcon()}</i>
+              <i
+                onClick={() => handelIcon("password")}
+                className="visibility-icon"
+              >
+                {isVisiblePassword ? visibilityIcon() : visibilityOffIcon()}
+              </i>
             </div>
             <div className="password-wrapper">
               <InputField
-                type="password"
+                type={inputTypeConfirmPassword}
                 value={ConfirmPassword}
                 placeholder={Values.RepeatPassowrdPlaceholder}
                 label={Values.ConfirmPassword}
-                name="ConfirmPassword"
+                name={Values.NameConfirmPassword}
                 className="inputField-bottom"
                 required={true}
                 onChange={handleChange}
               />
-              <i className="visibility-icon">{visibilityOffIcon()}</i>
+              <i
+                onClick={() => handelIcon("confirmPassword")}
+                className="visibility-icon"
+              >
+                {isVisibleConfirmPassword
+                  ? visibilityIcon()
+                  : visibilityOffIcon()}
+              </i>
             </div>
           </div>
           <div className="btn-submit">

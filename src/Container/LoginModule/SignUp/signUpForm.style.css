@@ -115,6 +115,13 @@
   display: none;
 }
 
+.error-message {
+  padding: 4px 4px 0px;
+  color: red;
+  font-size: 14px;
+  display: none;
+}
+
 @media (min-width: 250px) and (max-width: 350px) {
   .header-container {
     padding: 1rem;
@@ -318,7 +325,6 @@
   .form-bottom .code-wrapper {
     display: flex;
     justify-content: space-between;
-    align-items: center;
   }
 
   .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiMenu-paper.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
@@ -401,6 +407,14 @@
     text-align: center;
     padding: 1rem 0rem 0rem 0rem;
   }
+
+  .error-message {
+    display: block;
+    padding: 4px 4px 0px;
+    color: red;
+    font-size: 14px;
+  }
+  
 }
 @media (min-width: 768px) and (max-width: 1024px) {
   .header-container {
