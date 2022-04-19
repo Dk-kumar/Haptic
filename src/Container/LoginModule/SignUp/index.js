@@ -17,9 +17,18 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 const SignUpForm = () => {
+
+  const handelFields = () => {
+    if(window.innerWidth > 776) {
+      return {
+        Suffix: "", 
+        Title: ""
+      }
+    }
+  }
+
   let initialState = {
-    ...(window.innerWidth > 776 && {  Suffix: "",
-    Title: "", }),
+    ...(handelFields()),
     Firstname: "",
     Lastname: "",
     Email: "",
@@ -29,6 +38,7 @@ const SignUpForm = () => {
     Password: "",
     ConfirmPassword: "",
   };
+  console.log(initialState)
   let handelEyeIcon = {
     inputTypePassword: "password",
     inputTypeConfirmPassword: "password",
@@ -43,7 +53,7 @@ const SignUpForm = () => {
   let [isDisabled, setDisabled] = useState(true);
   let [isShowTooltip, setTooltip] = useState(toolTipMessage);
   let [toggleIcon, setToggleIcon] = useState(handelEyeIcon);
-  
+
   const {
     Suffix,
     Title,
@@ -327,12 +337,12 @@ const SignUpForm = () => {
                   {Values.PholePredefinedOption}
                 </p>
                 <div className="error-message">
-                  {phoneNumberError === "visible" && PhoneNumber !== '' && (
+                  {phoneNumberError === "visible" && PhoneNumber !== "" && (
                     <span>{Values.MobileValidationError}</span>
                   )}
-                  {phoneNumberError === "visible" && PhoneNumber === '' && (
-                  <span>{Values.Required}</span>
-                )}
+                  {phoneNumberError === "visible" && PhoneNumber === "" && (
+                    <span>{Values.Required}</span>
+                  )}
                 </div>
               </div>
             </div>
