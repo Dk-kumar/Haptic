@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import InputField from "../../../Component/Fields";
+import { formButtonEnable } from "../../../Shared/Validator";
 import { visibilityIcon, visibilityOffIcon } from "../../../Shared/Icons";
 import { Values } from "../../../Constants";
 import "./signInForm.style.css";
@@ -11,30 +12,30 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 const SignInForm = () => {
-  let initialState = [
-    {
-      suffix: "",
-      title: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      userName: "",
-      countryCode: "",
-      phoneNumber: "",
-      password: "",
-      confirmPassword: "",
-    },
-  ];
+  let initialState = {
+    Email: "",
+    Username: "",
+    CountryCode: "",
+    PhoneNumber: "",
+    Password: "",
+  };
+  
   const [inputValue, setInputValue] = useState(initialState);
   let [isDisabled, setDisabled] = useState(true);
-  const { email, userName, countryCode, phoneNumber, password } = inputValue;
+  let [isShowPassword, setShowPassword] = useState(false);
+
+  const { Email, Username, CountryCode, PhoneNumber, Password } = inputValue;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setInputValue((prev) => ({
-      ...prev,
+    setInputValue({
+      ...inputValue,
       [name]: value,
-    }));
+    });
+    let showBtn = formButtonEnable(inputValue);
+    if (showBtn === false) {
+      setDisabled(false);
+    }
     console.log(inputValue);
   };
 
@@ -43,7 +44,7 @@ const SignInForm = () => {
       <div className="header-container">
         <h2>{Values.SignIn}</h2>
         <span className="header-content">
-          {Values.SignUpLink} <Link to='/'>{Values.SignUp}</Link>
+          {Values.SignUpLink} <Link to="/">{Values.SignUp}</Link>
         </span>
       </div>
     );
@@ -77,7 +78,7 @@ const SignInForm = () => {
   const siginUpLink = () => {
     return (
       <span className="header-content">
-        {Values.SignUpLink} <Link to='/'>{Values.SignUp}</Link>
+        {Values.SignUpLink} <Link to="/">{Values.SignUp}</Link>
       </span>
     );
   };
@@ -91,7 +92,7 @@ const SignInForm = () => {
             <div className="email-wrapper">
               <InputField
                 type="text"
-                value={userName}
+                value={Username}
                 placeholder={Values.UserName}
                 label={Values.UserName}
                 name="Username"
@@ -101,7 +102,7 @@ const SignInForm = () => {
               />
               <InputField
                 type="email"
-                value={email}
+                value={Email}
                 placeholder={Values.Email}
                 label={Values.Email}
                 name={Values.Email}
@@ -114,10 +115,10 @@ const SignInForm = () => {
           <div className="form-bottom">
             <InputField
               type="text"
-              value={countryCode}
+              value={CountryCode}
               placeholder=""
               label={Values.CountryCode}
-              name="countryCode"
+              name={Values.NameCountryCode}
               className="inputField-bottom"
               required={true}
               onChange={handleChange}
@@ -131,7 +132,8 @@ const SignInForm = () => {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={countryCode}
+                    value={CountryCode}
+                    name={Values.NameCountryCode}
                     label=""
                     onChange={handleChange}
                   >
@@ -145,10 +147,11 @@ const SignInForm = () => {
               <div className="phone-wrapper">
                 <InputField
                   type="text"
-                  value={phoneNumber}
+                  value={PhoneNumber}
                   placeholder={Values.PhoneNumber}
                   label={Values.PhoneNumber}
-                  name="phoneNumber"
+                  name={Values.NamePhoneNumber}
+                  length="10"
                   className="inputField-bottom"
                   onChange={handleChange}
                 />
@@ -165,16 +168,21 @@ const SignInForm = () => {
             </div>
             <div className="password-wrapper">
               <InputField
-                type="password"
-                value={password}
+                type={isShowPassword ? "text" : "password"}
+                value={Password}
                 placeholder={Values.PasswordPlaceholder}
                 label={Values.Password}
-                name="password"
+                name={Values.NamePassword}
                 className="inputField-bottom"
                 required={true}
                 onChange={handleChange}
               />
-              <i className="visibility-icon">{visibilityOffIcon()}</i>
+              <i
+                onClick={() => setShowPassword(!isShowPassword)}
+                className="visibility-icon"
+              >
+                {isShowPassword ? visibilityIcon() : visibilityOffIcon()}
+              </i>
             </div>
           </div>
           <div className="btn-submit">

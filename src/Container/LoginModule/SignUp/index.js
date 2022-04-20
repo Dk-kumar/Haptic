@@ -17,18 +17,17 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 const SignUpForm = () => {
-
   const handelFields = () => {
-    if(window.innerWidth > 776) {
+    if (window.innerWidth > 776) {
       return {
-        Suffix: "", 
-        Title: ""
-      }
+        Suffix: "",
+        Title: "",
+      };
     }
-  }
+  };
 
   let initialState = {
-    ...(handelFields()),
+    ...handelFields(),
     Firstname: "",
     Lastname: "",
     Email: "",
@@ -38,21 +37,21 @@ const SignUpForm = () => {
     Password: "",
     ConfirmPassword: "",
   };
-  console.log(initialState)
-  let handelEyeIcon = {
-    inputTypePassword: "password",
-    inputTypeConfirmPassword: "password",
-    isVisiblePassword: false,
-    isVisibleConfirmPassword: false,
+
+  let handelShowHide = {
+    passwordField: false,
+    confirmPasswordField: false,
   };
+
   let toolTipMessage = {
     emailError: "hidden",
     phoneNumberError: "hidden",
   };
+
   const [inputValue, setInputValue] = useState(initialState);
   let [isDisabled, setDisabled] = useState(true);
   let [isShowTooltip, setTooltip] = useState(toolTipMessage);
-  let [toggleIcon, setToggleIcon] = useState(handelEyeIcon);
+  let [isShowPassword, setShowPassword] = useState(handelShowHide);
 
   const {
     Suffix,
@@ -68,12 +67,7 @@ const SignUpForm = () => {
   } = inputValue;
 
   const { emailError, phoneNumberError } = isShowTooltip;
-  const {
-    inputTypePassword,
-    inputTypeConfirmPassword,
-    isVisiblePassword,
-    isVisibleConfirmPassword,
-  } = toggleIcon;
+  const { passwordField, confirmPasswordField } = isShowPassword;
 
   const handleChange = (e) => {
     let { name, value } = e.target;
@@ -124,33 +118,15 @@ const SignUpForm = () => {
 
   const handelIcon = (field) => {
     if (field === "password") {
-      if (inputTypePassword === "password") {
-        return setToggleIcon({
-          ...toggleIcon,
-          inputTypePassword: "text",
-          isVisiblePassword: true,
-        });
-      } else {
-        return setToggleIcon({
-          ...toggleIcon,
-          inputTypePassword: "password",
-          isVisiblePassword: false,
-        });
-      }
+      setShowPassword({
+        ...isShowPassword,
+        passwordField: !passwordField,
+      });
     } else {
-      if (inputTypeConfirmPassword === "password") {
-        return setToggleIcon({
-          ...toggleIcon,
-          inputTypeConfirmPassword: "text",
-          isVisibleConfirmPassword: true,
-        });
-      } else {
-        return setToggleIcon({
-          ...toggleIcon,
-          inputTypeConfirmPassword: "password",
-          isVisibleConfirmPassword: false,
-        });
-      }
+      setShowPassword({
+        ...isShowPassword,
+        confirmPasswordField: !confirmPasswordField,
+      });
     }
   };
 
@@ -348,7 +324,7 @@ const SignUpForm = () => {
             </div>
             <div className="password-wrapper">
               <InputField
-                type={inputTypePassword}
+                type={passwordField ? "text" : "password"}
                 value={Password}
                 placeholder={Values.PasswordPlaceholder}
                 label={Values.Password}
@@ -361,12 +337,12 @@ const SignUpForm = () => {
                 onClick={() => handelIcon("password")}
                 className="visibility-icon"
               >
-                {isVisiblePassword ? visibilityIcon() : visibilityOffIcon()}
+                {passwordField ? visibilityIcon() : visibilityOffIcon()}
               </i>
             </div>
             <div className="password-wrapper">
               <InputField
-                type={inputTypeConfirmPassword}
+                type={confirmPasswordField ? "text" : "password"}
                 value={ConfirmPassword}
                 placeholder={Values.RepeatPassowrdPlaceholder}
                 label={Values.ConfirmPassword}
@@ -379,9 +355,7 @@ const SignUpForm = () => {
                 onClick={() => handelIcon("confirmPassword")}
                 className="visibility-icon"
               >
-                {isVisibleConfirmPassword
-                  ? visibilityIcon()
-                  : visibilityOffIcon()}
+                {confirmPasswordField ? visibilityIcon() : visibilityOffIcon()}
               </i>
             </div>
           </div>
