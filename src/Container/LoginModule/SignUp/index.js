@@ -86,7 +86,6 @@ const SignUpForm = () => {
     ) {
       setDisabled(false);
     }
-    console.log(inputValue);
   };
 
   const handleValidation = (type) => {

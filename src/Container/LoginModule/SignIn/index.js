@@ -36,7 +36,6 @@ const SignInForm = () => {
     if (showBtn === false) {
       setDisabled(false);
     }
-    console.log(inputValue);
   };
 
   const formHeader = () => {
