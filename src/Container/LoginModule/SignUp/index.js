@@ -38,6 +38,13 @@ const SignUpForm = () => {
     ConfirmPassword: "",
   };
 
+  let initialValidation = {
+    Firstname: false,
+    Lastname: false,
+    Username: false,
+    CountryCode: false
+  }
+
   let handelShowHide = {
     passwordField: false,
     confirmPasswordField: false,
@@ -52,6 +59,7 @@ const SignUpForm = () => {
   let [isDisabled, setDisabled] = useState(true);
   let [isShowTooltip, setTooltip] = useState(toolTipMessage);
   let [isShowPassword, setShowPassword] = useState(handelShowHide);
+  let [ validation, setValidation] = useState(initialValidation)
 
   const {
     Suffix,
@@ -107,13 +115,43 @@ const SignUpForm = () => {
         });
       }
     }
+    if(type === Values.FirstName) {
+      return setValidation({
+        ...validation,
+        Firstname: true
+      })
+    }
+
+    if(type === Values.LastName) {
+      return setValidation({
+        ...validation,
+        Lastname: true
+      })
+    }
+
+    if(type === Values.UserName) {
+      return setValidation({
+        ...validation,
+        Username: true
+      })
+    }
+
+    if(type === Values.CountryCode) {
+      return setValidation({
+        ...validation,
+        CountryCode: true
+      })
+    }
 
     setTooltip({
       ...isShowTooltip,
       emailError: "hidden",
       phoneNumberError: "hidden",
     });
+
   };
+
+  
 
   const handelIcon = (field) => {
     if (field === "password") {
@@ -197,24 +235,38 @@ const SignUpForm = () => {
               className="inputField-header"
               onChange={handleChange}
             />
-            <InputField
-              type="text"
-              value={Firstname}
-              placeholder={Values.FirstName}
-              label={Values.FirstName}
-              name={Values.FirstName}
-              className="inputField-header"
-              onChange={handleChange}
-            />
-            <InputField
-              type="text"
-              value={Lastname}
-              placeholder={Values.LastName}
-              label={Values.LastName}
-              name={Values.LastName}
-              className="inputField-header"
-              onChange={handleChange}
-            />
+            <div>
+              <InputField
+                type="text"
+                value={Firstname}
+                placeholder={Values.FirstName}
+                label={Values.FirstName}
+                name={Values.FirstName}
+                className="inputField-header"
+                onChange={handleChange}
+                required={true}
+                onBlur={() => handleValidation(Values.FirstName)}
+              />
+              <div className="error-message">
+                {Firstname === '' && validation.Firstname === true  && <span >Firstname is required</span>}
+              </div>
+            </div>
+            <div>
+              <InputField
+                type="text"
+                value={Lastname}
+                placeholder={Values.LastName}
+                label={Values.LastName}
+                name={Values.LastName}
+                className="inputField-header"
+                onChange={handleChange}
+                required={true}
+                onBlur={() => handleValidation(Values.LastName)}
+              />
+              <div className="error-message">
+                { Lastname === '' && validation.Lastname === true &&<span>Lastname is required</span>}
+              </div>
+            </div>
           </div>
           <div className="form-body">
             <div className="email-wrapper">
@@ -227,7 +279,7 @@ const SignUpForm = () => {
                 className="inputField-body"
                 required={true}
                 onChange={handleChange}
-                onBlur={() => handleValidation(Values.Email)}
+                onBlur={() =>  handleValidation(Values.Email)}
               />
               <InputField
                 type="checkbox"
@@ -247,28 +299,40 @@ const SignUpForm = () => {
                 )}
               </div>
             </div>
-            <InputField
-              type="text"
-              value={Username}
-              placeholder={Values.UserName}
-              label={Values.UserName}
-              name={Values.UserName}
-              className="inputField-body"
-              required={true}
-              onChange={handleChange}
-            />
+            <div>
+              <InputField
+                type="text"
+                value={Username}
+                placeholder={Values.UserName}
+                label={Values.UserName}
+                name={Values.UserName}
+                className="inputField-body"
+                required={true}
+                onChange={handleChange}
+                onBlur={() => handleValidation(Values.UserName)}
+              />
+              <div className="error-message">
+                { Lastname === '' && validation.Username === true && <span>Username is required</span>}
+              </div>
+            </div>
           </div>
           <div className="form-bottom">
-            <InputField
-              type="text"
-              value={CountryCode}
-              placeholder=""
-              label={Values.CountryCode}
-              name={Values.NameCountryCode}
-              className="inputField-bottom"
-              required={true}
-              onChange={handleChange}
-            />
+            <div>
+              <InputField
+                type="text"
+                value={CountryCode}
+                placeholder=""
+                label={Values.CountryCode}
+                name={Values.NameCountryCode}
+                className="inputField-bottom"
+                required={true}
+                onChange={handleChange}
+                onBlur={() => handleValidation(Values.CountryCode)}
+              />
+              <div className="error-message">
+                {CountryCode === '' && validation.CountryCode === true &&<span>Select country code</span>}
+              </div>
+            </div>
             <div className="code-wrapper">
               <Box
                 sx={{ m: 1, flexBasis: "24%", margin: "1rem 0rem 0rem 0rem" }}
