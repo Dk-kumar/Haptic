@@ -23,6 +23,14 @@
   padding: 3rem;
 }
 
+.phone-chekbox {
+  position: relative;
+}
+
+.email-checkbox {
+  position: relative;
+}
+
 .form-header {
   display: grid;
   grid-template-columns: 50% 50%;
@@ -75,7 +83,7 @@
 
 .phone-wrapper .inputField-checkbox {
   position: absolute;
-  bottom: 27px;
+  bottom: 7px;
   right: 36px;
 }
 

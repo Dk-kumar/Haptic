@@ -42,8 +42,8 @@ const SignUpForm = () => {
     Firstname: false,
     Lastname: false,
     Username: false,
-    CountryCode: false
-  }
+    CountryCode: false,
+  };
 
   let handelShowHide = {
     passwordField: false,
@@ -59,7 +59,7 @@ const SignUpForm = () => {
   let [isDisabled, setDisabled] = useState(true);
   let [isShowTooltip, setTooltip] = useState(toolTipMessage);
   let [isShowPassword, setShowPassword] = useState(handelShowHide);
-  let [ validation, setValidation] = useState(initialValidation)
+  let [validation, setValidation] = useState(initialValidation);
 
   const {
     Suffix,
@@ -115,32 +115,32 @@ const SignUpForm = () => {
         });
       }
     }
-    if(type === Values.FirstName) {
+    if (type === Values.FirstName) {
       return setValidation({
         ...validation,
-        Firstname: true
-      })
+        Firstname: true,
+      });
     }
 
-    if(type === Values.LastName) {
+    if (type === Values.LastName) {
       return setValidation({
         ...validation,
-        Lastname: true
-      })
+        Lastname: true,
+      });
     }
 
-    if(type === Values.UserName) {
+    if (type === Values.UserName) {
       return setValidation({
         ...validation,
-        Username: true
-      })
+        Username: true,
+      });
     }
 
-    if(type === Values.CountryCode) {
+    if (type === Values.CountryCode) {
       return setValidation({
         ...validation,
-        CountryCode: true
-      })
+        CountryCode: true,
+      });
     }
 
     setTooltip({
@@ -148,10 +148,7 @@ const SignUpForm = () => {
       emailError: "hidden",
       phoneNumberError: "hidden",
     });
-
   };
-
-  
 
   const handelIcon = (field) => {
     if (field === "password") {
@@ -248,7 +245,9 @@ const SignUpForm = () => {
                 onBlur={() => handleValidation(Values.FirstName)}
               />
               <div className="error-message">
-                {Firstname === '' && validation.Firstname === true  && <span >Firstname is required</span>}
+                {Firstname === "" && validation.Firstname === true && (
+                  <span>Firstname is required</span>
+                )}
               </div>
             </div>
             <div>
@@ -264,29 +263,33 @@ const SignUpForm = () => {
                 onBlur={() => handleValidation(Values.LastName)}
               />
               <div className="error-message">
-                { Lastname === '' && validation.Lastname === true &&<span>Lastname is required</span>}
+                {Lastname === "" && validation.Lastname === true && (
+                  <span>Lastname is required</span>
+                )}
               </div>
             </div>
           </div>
           <div className="form-body">
             <div className="email-wrapper">
-              <InputField
-                type="email"
-                value={Email}
-                placeholder={Values.Email}
-                label={Values.Email}
-                name={Values.Email}
-                className="inputField-body"
-                required={true}
-                onChange={handleChange}
-                onBlur={() =>  handleValidation(Values.Email)}
-              />
-              <InputField
-                type="checkbox"
-                name={Values.Email}
-                className="inputField-checkbox"
-                onChange={handleChange}
-              />
+              <div className="email-checkbox">
+                <InputField
+                  type="email"
+                  value={Email}
+                  placeholder={Values.Email}
+                  label={Values.Email}
+                  name={Values.Email}
+                  className="inputField-body"
+                  required={true}
+                  onChange={handleChange}
+                  onBlur={() => handleValidation(Values.Email)}
+                />
+                <InputField
+                  type="checkbox"
+                  name={Values.Email}
+                  className="inputField-checkbox"
+                  onChange={handleChange}
+                />
+              </div>
               <p className="email-description">
                 {Values.EmailPredefinedOption}
               </p>
@@ -312,7 +315,9 @@ const SignUpForm = () => {
                 onBlur={() => handleValidation(Values.UserName)}
               />
               <div className="error-message">
-                { Lastname === '' && validation.Username === true && <span>Username is required</span>}
+                {Lastname === "" && validation.Username === true && (
+                  <span>Username is required</span>
+                )}
               </div>
             </div>
           </div>
@@ -330,7 +335,9 @@ const SignUpForm = () => {
                 onBlur={() => handleValidation(Values.CountryCode)}
               />
               <div className="error-message">
-                {CountryCode === '' && validation.CountryCode === true &&<span>Select country code</span>}
+                {CountryCode === "" && validation.CountryCode === true && (
+                  <span>Select country code</span>
+                )}
               </div>
             </div>
             <div className="code-wrapper">
@@ -355,23 +362,25 @@ const SignUpForm = () => {
                 </FormControl>
               </Box>
               <div className="phone-wrapper">
-                <InputField
-                  type="text"
-                  value={PhoneNumber}
-                  placeholder={Values.PhoneNumber}
-                  label={Values.PhoneNumber}
-                  name={Values.NamePhoneNumber}
-                  length="10"
-                  className="inputField-bottom"
-                  onChange={handleChange}
-                  onBlur={() => handleValidation(Values.PhoneNumber)}
-                />
-                <InputField
-                  type="checkbox"
-                  name={Values.Email}
-                  className="inputField-checkbox"
-                  onChange={handleChange}
-                />
+                <div className="phone-chekbox">
+                  <InputField
+                    type="text"
+                    value={PhoneNumber}
+                    placeholder={Values.PhoneNumber}
+                    label={Values.PhoneNumber}
+                    name={Values.NamePhoneNumber}
+                    length="10"
+                    className="inputField-bottom"
+                    onChange={handleChange}
+                    onBlur={() => handleValidation(Values.PhoneNumber)}
+                  />
+                  <InputField
+                    type="checkbox"
+                    name={Values.Email}
+                    className="inputField-checkbox"
+                    onChange={handleChange}
+                  />
+                </div>
                 <p className="phone-description">
                   {Values.PholePredefinedOption}
                 </p>
