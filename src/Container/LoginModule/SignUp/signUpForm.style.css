@@ -71,10 +71,6 @@
   row-gap: 8px;
   width: 100%;
 }
-.countrycode-label::after {
-  content: "*";
-  color: red;
-}
 
 .css-1uxzw38 {
   flex-basis: 37% !important;
@@ -82,7 +78,7 @@
 }
 
 .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.MuiSelect-select {
-  padding: 10px 32px 5px 18px !important;
+  padding: 10px 32px 5px 18px  !important;
 }
 
 .phone-wrapper {
@@ -95,7 +91,7 @@
   bottom: 1px;
   right: 16px;
   cursor: pointer;
-  opacity: 0.7;
+  opacity: .7;
 }
 
 .email-wrapper .inputField-checkbox {
@@ -158,7 +154,7 @@
     font-size: 25px;
     margin-bottom: 8px;
   }
-
+  
   .form-wrapper {
     padding: 2rem;
     background: #e1e5ee;
@@ -220,13 +216,13 @@
   .form-bottom {
     grid-template-columns: none;
   }
-
+  
   .phone-wrapper {
     flex-basis: 60%;
   }
   .code-wrapper {
     display: inherit;
-    margin-top: 14px;
+    margin-top: 14px; 
   }
   .phone-wrapper .inputField-checkbox {
     display: none;
@@ -292,7 +288,7 @@
 
   .code-wrapper {
     display: inherit;
-    margin-top: 14px;
+    margin-top: 14px; 
   }
 
   .css-1uxzw38 {
@@ -373,6 +369,7 @@
     color: red;
     font-size: 14px;
   }
+  
 }
 @media (min-width: 768px) and (max-width: 1024px) {
   .header-container {
@@ -398,7 +395,7 @@
   .passwordField {
     display: flex;
     gap: 12px;
-  }
+  } 
   .email-wrapper .inputField-checkbox {
     right: 16px;
   }
@@ -420,5 +417,5 @@
   .passwordField {
     column-gap: 12px;
     display: flex;
-  }
+  } 
 }

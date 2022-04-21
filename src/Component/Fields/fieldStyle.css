@@ -1,124 +1,124 @@
 :root {
-  --button-color: #6757f6;
-  --input-border-color: #c7c3c3;
-  --onfocus-input-border-color: #6757f6;
-  --placeholder-color: rgb(88, 84, 84);
-}
+    --button-color: #6757f6;
+    --input-border-color: #c7c3c3;
+    --onfocus-input-border-color: #6757f6;
+    --placeholder-color: rgb(88, 84, 84);
+  }
 
 .inputField-header {
-  display: flex;
-  flex-direction: column;
-  row-gap: 8px;
-  /* max-width: 272px; */
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    /* max-width: 272px; */
+    width: 100%;
 }
 
 .inputField-body {
-  display: flex;
-  flex-direction: column;
-  row-gap: 8px;
-  width: 100%;
-  margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    width: 100%;
+    margin-top: 1rem;
 }
 
 .inputField-bottom {
-  display: flex;
-  flex-direction: column;
-  row-gap: 8px;
-  /* max-width: 272px; */
-  width: 100%;
-  margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    /* max-width: 272px; */
+    width: 100%;
+    margin-top: 1rem;
 }
 
 .required-field::after {
-  content: "*";
-  color: red;
+    content: "*";
+    color: red;
 }
 
 input.form-control {
-  accent-color: #6757f6;
+    accent-color: #6757f6;
 }
 
 input {
-  outline: none;
-  border: 1px solid;
+    outline: none;
+    border: 1px solid;
 }
 
-input[type="text"]:focus {
-  outline: none;
-  border-color: var(--onfocus-input-border-color);
+input[type=text]:focus {
+    outline: none;
+    border-color: var(--onfocus-input-border-color);
 }
 
-input[type="email"]:focus {
-  outline: none;
-  border-color: var(--onfocus-input-border-color);
+input[type=email]:focus {
+    outline: none;
+    border-color: var(--onfocus-input-border-color);
 }
 
-input[type="password"]:focus {
-  outline: none;
-  border-color: var(--onfocus-input-border-color);
+input[type=password]:focus {
+    outline: none;
+    border-color: var(--onfocus-input-border-color);
 }
 
-input[type="text"] {
-  height: 2rem;
-  border-radius: 5px;
-  padding: 2px 0px 2px 6px;
-  border-color: var(--input-border-color);
+input[type=text] {
+    height: 2rem;
+    border-radius: 5px;
+    padding: 2px 0px 2px 6px;
+    border-color: var(--input-border-color)
 }
 
-input[type="email"] {
-  height: 2rem;
-  border-radius: 5px;
-  padding: 2px 0px 2px 6px;
-  border-color: var(--input-border-color);
+input[type=email] {
+    height: 2rem;
+    border-radius: 5px;
+    padding: 2px 0px 2px 6px;
+    border-color: var(--input-border-color)
 }
 
-input[type="password"] {
-  height: 2rem;
-  border-radius: 5px;
-  padding: 2px 0px 2px 6px;
-  border-color: var(--input-border-color);
+input[type=password] {
+    height: 2rem;
+    border-radius: 5px;
+    padding: 2px 0px 2px 6px;
+    border-color: var(--input-border-color)
 }
 
-input[type="button"] {
-  border: none;
-  padding: 12px;
-  border-radius: 6px;
-  color: #fff;
-  background-color: var(--button-color);
-  cursor: pointer;
+input[type=button] {
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    color: #fff;
+    background-color: var(--button-color);
+    cursor: pointer;
 }
 
 input::placeholder {
-  color: transparent;
+    color: transparent;
 }
 
 @media (min-width: 250px) and (max-width: 670px) {
-  input::placeholder {
-    color: var(--placeholder-color);
-  }
 
-  .inputField-header,
-  .inputField-bottom {
-    max-width: unset;
-  }
+    input::placeholder {
+        color: var(--placeholder-color)
+    }
 
-  input[type="button"] {
-    width: 100%;
-  }
+    .inputField-header, .inputField-bottom {
+        max-width: unset;
+    }
+
+    input[type=button] {
+       width: 100%;
+    }
 }
 
 @media (min-width: 360px) and (max-width: 767px) {
-  input::placeholder {
-    color: var(--placeholder-color);
-  }
 
-  .inputField-header,
-  .inputField-bottom {
-    max-width: unset;
-  }
+    input::placeholder {
+        color: var(--placeholder-color)
+    }
 
-  input[type="button"] {
-    width: 100%;
-  }
+    .inputField-header, .inputField-bottom {
+        max-width: unset;
+    }
+
+    input[type=button] {
+       width: 100%;
+    }
 }
