@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import InputField from "../../../Component/Fields";
-import { formButtonEnable } from "../../../Shared/Validator";
+import { formButtonEnable, emailValidator } from "../../../Shared/Validator";
 import { visibilityIcon, visibilityOffIcon } from "../../../Shared/Icons";
 import { Values } from "../../../Constants";
 import googleIcon from "../../../Shared/Images/googleIcon.png";
 import facbookIcon from "../../../Shared/Images/facbookIcon.png";
-import githubIcon from "../../../Shared/Images/githubIcon.png"
+import githubIcon from "../../../Shared/Images/githubIcon.png";
 import "./signInForm.style.css";
 
 const SignInForm = () => {
@@ -15,9 +15,16 @@ const SignInForm = () => {
     Password: "",
   };
 
+  let initialValidation = {
+    UserId: false,
+    Password: false,
+    emailError: false,
+  };
+
   const [inputValue, setInputValue] = useState(initialState);
   let [isDisabled, setDisabled] = useState(true);
   let [isShowPassword, setShowPassword] = useState(false);
+  let [validation, setValidation] = useState(initialValidation);
 
   const { UserId, Password } = inputValue;
 
@@ -28,9 +35,31 @@ const SignInForm = () => {
       [name]: value,
     });
     let showBtn = formButtonEnable(inputValue);
-    if (showBtn === false) {
-      setDisabled(false);
+    if (!showBtn) {
+      return setDisabled(false);
     }
+    setDisabled(true);
+  };
+
+  const handleValidation = (type) => {
+    if (type === Values.Email) {
+      if (!emailValidator(UserId)) {
+        return setValidation({
+          ...validation,
+          UserId: true,
+        });
+      }
+    }
+    if (type === Values.Password) {
+      return setValidation({
+        ...validation,
+        Password: true,
+      });
+    }
+    setValidation({
+      ...validation,
+      UserId: false,
+    });
   };
 
   const formHeader = () => {
@@ -104,31 +133,6 @@ const SignInForm = () => {
     );
   };
 
-  // const socialLogin = () => {
-  //   return (
-  //     <div className="socialLogin-container">
-  //       <InputField
-  //         type="button"
-  //         value={Values.GoogleLogin}
-  //         placeholder=""
-  //         className="google-login"
-  //       />
-  //       <InputField
-  //         type="button"
-  //         value={Values.FaceBookLogin}
-  //         placeholder=""
-  //         className="google-login"
-  //       />
-  //       <InputField
-  //         type="button"
-  //         value={Values.GitHubLogin}
-  //         placeholder=""
-  //         className="github-login"
-  //       />
-  //     </div>
-  //   );
-  // };
-
   return (
     <>
       <form className="sigin-form-container">
@@ -145,7 +149,17 @@ const SignInForm = () => {
                 className="inputField-body"
                 required={true}
                 onChange={handleChange}
+                border={validation.UserId}
+                onBlur={() => handleValidation(Values.Email)}
               />
+            </div>
+            <div className="error-message">
+              {validation.UserId && UserId !== "" && (
+                <span>{Values.EmailTooltip}</span>
+              )}
+              {validation.UserId && UserId === "" && (
+                <span>{Values.EmailError}</span>
+              )}
             </div>
           </div>
           <div className="form-bottom">
@@ -158,14 +172,21 @@ const SignInForm = () => {
                 name={Values.NamePassword}
                 className="inputField-bottom"
                 required={true}
+                border={validation.Password && Password === "" ? true : false}
+                onBlur={() => handleValidation(Values.Password)}
                 onChange={handleChange}
               />
               <i
                 onClick={() => setShowPassword(!isShowPassword)}
                 className="visibility-icon"
               >
-                {isShowPassword ? visibilityIcon() : visibilityOffIcon()}
+                {isShowPassword ? visibilityOffIcon() : visibilityIcon()}
               </i>
+            </div>
+            <div className="error-message">
+              {Password === "" && validation.Password && (
+                <span>{Values.PasswordError}</span>
+              )}
             </div>
           </div>
           {bottomLinks()}

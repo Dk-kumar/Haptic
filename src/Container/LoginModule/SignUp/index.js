@@ -7,6 +7,7 @@ import {
   emailValidator,
   phoneNumberValidator,
   formButtonEnable,
+  passwordValidation,
 } from "../../../Shared/Validator";
 import "./signUpForm.style.css";
 
@@ -41,8 +42,13 @@ const SignUpForm = () => {
   let initialValidation = {
     Firstname: false,
     Lastname: false,
+    Email: false,
+    Phone: false,
     Username: false,
     CountryCode: false,
+    Password: false,
+    ConfirmPassword: false,
+    isPasswordMatch: false,
   };
 
   let handelShowHide = {
@@ -143,6 +149,20 @@ const SignUpForm = () => {
       });
     }
 
+    if (type === Values.Password) {
+      return setValidation({
+        ...validation,
+        Password: true,
+      });
+    }
+
+    if (type === Values.ConfirmPassword) {
+      return setValidation({
+        ...validation,
+        ConfirmPassword: true,
+      });
+    }
+
     setTooltip({
       ...isShowTooltip,
       emailError: "hidden",
@@ -162,6 +182,15 @@ const SignUpForm = () => {
         confirmPasswordField: !confirmPasswordField,
       });
     }
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    let isPasswordMatch = passwordValidation(inputValue);
+    setValidation({
+      ...validation,
+      isPasswordMatch: isPasswordMatch,
+    });
   };
 
   const formHeader = () => {
@@ -200,7 +229,6 @@ const SignUpForm = () => {
     );
   };
 
-
   return (
     <>
       <form className="form-container">
@@ -232,11 +260,12 @@ const SignUpForm = () => {
                 className="inputField-header"
                 onChange={handleChange}
                 required={true}
+                border={validation.Firstname && Firstname === "" ? true : false}
                 onBlur={() => handleValidation(Values.FirstName)}
               />
               <div className="error-message">
-                {Firstname === "" && validation.Firstname === true && (
-                  <span>Firstname is required</span>
+                {Firstname === "" && validation.Firstname && (
+                  <span>{Values.FirstName}</span>
                 )}
               </div>
             </div>
@@ -249,11 +278,12 @@ const SignUpForm = () => {
                 className="inputField-header"
                 onChange={handleChange}
                 required={true}
+                border={validation.Lastname && Lastname === "" ? true : false}
                 onBlur={() => handleValidation(Values.LastName)}
               />
               <div className="error-message">
-                {Lastname === "" && validation.Lastname === true && (
-                  <span>Lastname is required</span>
+                {Lastname === "" && validation.Lastname && (
+                  <span>{Values.LastNameError}</span>
                 )}
               </div>
             </div>
@@ -269,6 +299,7 @@ const SignUpForm = () => {
                   className="inputField-body"
                   required={true}
                   onChange={handleChange}
+                  border={emailError === "visible" ? true : false}
                   onBlur={() => handleValidation(Values.Email)}
                 />
                 <InputField
@@ -283,7 +314,7 @@ const SignUpForm = () => {
                   <span>{Values.EmailTooltip}</span>
                 )}
                 {emailError === "visible" && Email === "" && (
-                  <span>{Values.Required}</span>
+                  <span>{Values.EmailError}</span>
                 )}
               </div>
               <p className="signUp email-description">
@@ -298,20 +329,29 @@ const SignUpForm = () => {
                 name={Values.UserName}
                 className="inputField-body"
                 required={true}
+                border={
+                  (validation.Username && Username === "") ||
+                  (!(Username.length > 6) && Username !== "")
+                    ? true
+                    : false
+                }
                 onChange={handleChange}
                 onBlur={() => handleValidation(Values.UserName)}
               />
               <div className="error-message">
-                {Lastname === "" && validation.Username === true && (
-                  <span>Username is required</span>
+                {Username === "" && validation.Username && (
+                  <span>{Values.UserNameError}</span>
                 )}
+                {!(Username.length > 6) &&
+                  Username !== "" &&
+                  validation.Username && <span>{Values.UserNameMaxError}</span>}
               </div>
             </div>
           </div>
           <div className="form-bottom">
             <div className="code-wrapper">
               <div className="countrycode-wrapper">
-                <label>Country Code</label>
+                <label className="country-code">Country Code</label>
                 <Box
                   sx={{ m: 1, flexBasis: "24%", margin: "1rem 0rem 0rem 0rem" }}
                   size="small"
@@ -343,6 +383,7 @@ const SignUpForm = () => {
                     required={true}
                     className="inputField-bottom phoneNumberField"
                     onChange={handleChange}
+                    border={phoneNumberError === "visible" ? true : false}
                     onBlur={() => handleValidation(Values.PhoneNumber)}
                   />
                   <InputField
@@ -367,38 +408,67 @@ const SignUpForm = () => {
             </div>
             <div className="passwordField">
               <div className="password-wrapper">
-                <InputField
-                  type={passwordField ? "text" : "password"}
-                  value={Password}
-                  label={Values.Password}
-                  name={Values.NamePassword}
-                  className="inputField-bottom"
-                  required={true}
-                  onChange={handleChange}
-                />
-                <i
-                  onClick={() => handelIcon("password")}
-                  className="visibility-icon"
-                >
-                  {passwordField ? visibilityIcon() : visibilityOffIcon()}
-                </i>
+                <div className="password-container">
+                  <InputField
+                    type={passwordField ? "text" : "password"}
+                    value={Password}
+                    label={Values.Password}
+                    name={Values.NamePassword}
+                    className="inputField-bottom"
+                    required={true}
+                    border={
+                      validation.Password && Password === "" ? true : false
+                    }
+                    onChange={handleChange}
+                    onBlur={() => handleValidation(Values.Password)}
+                  />
+                  <i
+                    onClick={() => handelIcon("password")}
+                    className="visibility-icon"
+                  >
+                    {passwordField ? visibilityOffIcon() : visibilityIcon()}
+                  </i>
+                </div>
+                <div className="error-message">
+                  {Password === "" && validation.Password && (
+                    <span>{Values.PasswordError}</span>
+                  )}
+                </div>
               </div>
               <div className="password-wrapper">
-                <InputField
-                  type={confirmPasswordField ? "text" : "password"}
-                  value={ConfirmPassword}
-                  label={Values.ConfirmPassword}
-                  name={Values.NameConfirmPassword}
-                  className="inputField-bottom"
-                  required={true}
-                  onChange={handleChange}
-                />
-                <i
-                  onClick={() => handelIcon("confirmPassword")}
-                  className="visibility-icon"
-                >
-                  {confirmPasswordField ? visibilityIcon() : visibilityOffIcon()}
-                </i>
+                <div className="password-container">
+                  <InputField
+                    type={confirmPasswordField ? "text" : "password"}
+                    value={ConfirmPassword}
+                    label={Values.ConfirmPassword}
+                    name={Values.NameConfirmPassword}
+                    className="inputField-bottom"
+                    required={true}
+                    border={
+                      validation.ConfirmPassword && ConfirmPassword === ""
+                        ? true
+                        : false
+                    }
+                    onChange={handleChange}
+                    onBlur={() => handleValidation(Values.ConfirmPassword)}
+                  />
+                  <i
+                    onClick={() => handelIcon("confirmPassword")}
+                    className="visibility-icon"
+                  >
+                    {confirmPasswordField
+                      ? visibilityOffIcon()
+                      : visibilityIcon()}
+                  </i>
+                </div>
+                <div className="error-message">
+                  {ConfirmPassword === "" && validation.ConfirmPassword && (
+                    <span>{Values.ConformPasswordError}</span>
+                  )}
+                  {validation.isPasswordMatch && ConfirmPassword !== "" && (
+                    <span>{Values.IsPasswordMatch}</span>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -407,6 +477,7 @@ const SignUpForm = () => {
               type="submit"
               disabled={isDisabled}
               className={isDisabled ? "disabled-button" : "form-submit"}
+              onClick={onSubmit}
             >
               {Values.CreateAccount}
             </button>

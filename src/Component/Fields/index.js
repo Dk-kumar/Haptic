@@ -10,6 +10,7 @@ const InputField = ({
   required,
   type,
   onChange,
+  border,
   onBlur,
 }) => {
   return (
@@ -20,6 +21,7 @@ const InputField = ({
         </label>
       )}
       <input
+        style={{borderColor: border && "red"}}
         type={type}
         value={value}
         name={name}

@@ -4,15 +4,23 @@ export const emailValidator = (email) => {
 };
 
 export const phoneNumberValidator = (number) => {
-    const numberRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-    return numberRegex.test(number)
-}
+  const numberRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+  return numberRegex.test(number);
+};
 
 export const formButtonEnable = (fieldValue) => {
- let empty = Object.values(fieldValue).map(elem => {
-   if(elem === '') {
-     return false
-   }
- })
- return empty.includes(false)
-}
+  let empty = Object.values(fieldValue).map((elem) => {
+    if (elem === "") {
+      return false;
+    }
+  });
+  return empty.includes(false);
+};
+
+export const passwordValidation = (fieldValue) => {
+  const { Password, ConfirmPassword } = fieldValue;
+  if (Password !== ConfirmPassword) {
+    return true;
+  }
+  return false;
+};
