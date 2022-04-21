@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import InputField from "../../../Component/Fields";
 import { visibilityIcon, visibilityOffIcon } from "../../../Shared/Icons";
@@ -7,6 +7,7 @@ import {
   emailValidator,
   phoneNumberValidator,
   formButtonEnable,
+  formValidation
 } from "../../../Shared/Validator";
 import "./signUpForm.style.css";
 
@@ -60,6 +61,7 @@ const SignUpForm = () => {
   let [isShowTooltip, setTooltip] = useState(toolTipMessage);
   let [isShowPassword, setShowPassword] = useState(handelShowHide);
   let [validation, setValidation] = useState(initialValidation);
+  let [ValidationError, setError] = useState({})
 
   const {
     Suffix,
@@ -82,12 +84,14 @@ const SignUpForm = () => {
     if (name === "PhoneNumber") {
       if (isNaN(value)) return false;
     }
+    
     setInputValue({
       ...inputValue,
       [name]: value,
     });
+   
     let showBtn = formButtonEnable(inputValue);
-    if (
+    if (+
       showBtn === false &&
       emailError === "hidden" &&
       phoneNumberError === "hidden"
@@ -98,6 +102,12 @@ const SignUpForm = () => {
 
   const handleValidation = (type) => {
     const { Email, PhoneNumber } = inputValue;
+
+    setError({
+      ...ValidationError,
+      ValidationError: formValidation(inputValue, type)
+    })
+
     if (type === Values.Email) {
       if (!emailValidator(Email)) {
         return setTooltip({
@@ -115,34 +125,7 @@ const SignUpForm = () => {
         });
       }
     }
-    if (type === Values.FirstName) {
-      return setValidation({
-        ...validation,
-        Firstname: true,
-      });
-    }
-
-    if (type === Values.LastName) {
-      return setValidation({
-        ...validation,
-        Lastname: true,
-      });
-    }
-
-    if (type === Values.UserName) {
-      return setValidation({
-        ...validation,
-        Username: true,
-      });
-    }
-
-    if (type === Values.CountryCode) {
-      return setValidation({
-        ...validation,
-        CountryCode: true,
-      });
-    }
-
+    
     setTooltip({
       ...isShowTooltip,
       emailError: "hidden",
@@ -200,7 +183,6 @@ const SignUpForm = () => {
     );
   };
 
-
   return (
     <>
       <form className="form-container">
@@ -235,8 +217,8 @@ const SignUpForm = () => {
                 onBlur={() => handleValidation(Values.FirstName)}
               />
               <div className="error-message">
-                {Firstname === "" && validation.Firstname === true && (
-                  <span>Firstname is required</span>
+                {ValidationError.ValidationError?.errorsMessage.Firstname && (
+                  <span>{ValidationError.ValidationError.errorsMessage.Firstname}</span>
                 )}
               </div>
             </div>
@@ -251,9 +233,9 @@ const SignUpForm = () => {
                 required={true}
                 onBlur={() => handleValidation(Values.LastName)}
               />
-              <div className="error-message">
-                {Lastname === "" && validation.Lastname === true && (
-                  <span>Lastname is required</span>
+               <div className="error-message">
+                {ValidationError.ValidationError?.errorsMessage.Lastname && (
+                  <span>{ValidationError.ValidationError.errorsMessage.Lastname}</span>
                 )}
               </div>
             </div>
@@ -279,11 +261,8 @@ const SignUpForm = () => {
                 />
               </div>
               <div className="error-message">
-                {emailError === "visible" && Email !== "" && (
-                  <span>{Values.EmailTooltip}</span>
-                )}
-                {emailError === "visible" && Email === "" && (
-                  <span>{Values.Required}</span>
+                {ValidationError.ValidationError?.errorsMessage.Email  && (
+                  <span>{ValidationError.ValidationError.errorsMessage.Email}</span>
                 )}
               </div>
               <p className="signUp email-description">
@@ -302,8 +281,8 @@ const SignUpForm = () => {
                 onBlur={() => handleValidation(Values.UserName)}
               />
               <div className="error-message">
-                {Lastname === "" && validation.Username === true && (
-                  <span>Username is required</span>
+                {ValidationError.ValidationError?.errorsMessage.Username  && (
+                  <span>{ValidationError.ValidationError.errorsMessage.Username}</span>
                 )}
               </div>
             </div>
@@ -311,7 +290,7 @@ const SignUpForm = () => {
           <div className="form-bottom">
             <div className="code-wrapper">
               <div className="countrycode-wrapper">
-                <label>Country Code</label>
+                <label className="countrycode-label">Country Code</label>
                 <Box
                   sx={{ m: 1, flexBasis: "24%", margin: "1rem 0rem 0rem 0rem" }}
                   size="small"
@@ -325,10 +304,9 @@ const SignUpForm = () => {
                       name={Values.NameCountryCode}
                       onChange={handleChange}
                     >
-                      <MenuItem value={+91}>+91</MenuItem>
-                      <MenuItem value={+862}>+862</MenuItem>
-                      <MenuItem value={+99}>+99</MenuItem>
-                      <MenuItem value={+7432}>+7432</MenuItem>
+                      <MenuItem value={+91}>+1(USA)</MenuItem>
+                      <MenuItem value={+862}>+1(Canada)</MenuItem>
+                      <MenuItem value={+99}>+52(Mexico)</MenuItem>
                     </Select>
                   </FormControl>
                 </Box>
@@ -354,13 +332,10 @@ const SignUpForm = () => {
                   />
                 </div>
                 <div className="error-message">
-                  {phoneNumberError === "visible" && PhoneNumber !== "" && (
-                    <span>{Values.MobileValidationError}</span>
-                  )}
-                  {phoneNumberError === "visible" && PhoneNumber === "" && (
-                    <span>{Values.Required}</span>
-                  )}
-                </div>
+                {ValidationError.ValidationError?.errorsMessage.Phonenumber  && (
+                  <span>{ValidationError.ValidationError.errorsMessage.Phonenumber}</span>
+                )}
+              </div>
                 <p className="signUp phone-description">
                   {Values.PholePredefinedOption}
                 </p>
@@ -376,6 +351,7 @@ const SignUpForm = () => {
                   className="inputField-bottom"
                   required={true}
                   onChange={handleChange}
+                  onBlur={() => handleValidation(Values.NamePassword)}
                 />
                 <i
                   onClick={() => handelIcon("password")}
@@ -383,6 +359,11 @@ const SignUpForm = () => {
                 >
                   {passwordField ? visibilityIcon() : visibilityOffIcon()}
                 </i>
+              </div>
+              <div className="error-message">
+                {ValidationError.ValidationError?.errorsMessage.Password  && (
+                  <span>{ValidationError.ValidationError.errorsMessage.Password}</span>
+                )}
               </div>
               <div className="password-wrapper">
                 <InputField
@@ -393,13 +374,21 @@ const SignUpForm = () => {
                   className="inputField-bottom"
                   required={true}
                   onChange={handleChange}
+                  onBlur={() => handleValidation(Values.NameConfirmPassword)}
                 />
                 <i
                   onClick={() => handelIcon("confirmPassword")}
                   className="visibility-icon"
                 >
-                  {confirmPasswordField ? visibilityIcon() : visibilityOffIcon()}
+                  {confirmPasswordField
+                    ? visibilityIcon()
+                    : visibilityOffIcon()}
                 </i>
+              </div>
+              <div className="error-message">
+                {ValidationError.ValidationError?.errorsMessage.ConfirmPassword  && (
+                  <span>{ValidationError.ValidationError.errorsMessage.ConfirmPassword}</span>
+                )}
               </div>
             </div>
           </div>
