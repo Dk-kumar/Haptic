@@ -1,3 +1,11 @@
+.sigin-form-container {
+  width: 20%;
+  height: auto;
+  background-color: #fff;
+  margin: 3rem auto;
+  border-radius: 16px;
+}
+
 .login-option {
   display: flex;
   flex-direction: row-reverse;
@@ -23,6 +31,39 @@
   cursor: pointer;
 }
 
+.signin-line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.line-left {
+  border: 1px solid #aeb2be;
+  flex-basis: 35%;
+}
+
+.line-right {
+  border: 1px solid #aeb2be;
+  flex-basis: 35%;
+}
+
+
+
+.btn-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+
+img {
+  width: 34px;
+  border: 1px solid;
+  border-color: #a18f8f;
+}
+
 @media screen and (min-width: 250px) and (max-width: 350px) {
   .signUp-link {
     display: none;
@@ -30,6 +71,13 @@
 }
 
 @media screen and (min-width: 360px) and (max-width: 767px) {
+  .sigin-form-container {
+    width: initial;
+    height: auto;
+    background-color: #fff;
+    margin: initial;
+    border-radius: initial;
+}
   .signIn.inputField-checkbox {
     display: none;
   }
@@ -43,6 +91,13 @@
 }
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
+  .sigin-form-container {
+    /* width: 20%; */
+    height: auto;
+    background-color: #fff;
+    /* margin: 3rem auto; */
+    /* border-radius: 16px; */
+}
   .phoneNumberCheckBox {
     position: relative;
   }

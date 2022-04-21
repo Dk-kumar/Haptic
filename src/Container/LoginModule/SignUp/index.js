@@ -325,10 +325,9 @@ const SignUpForm = () => {
                       name={Values.NameCountryCode}
                       onChange={handleChange}
                     >
-                      <MenuItem value={+91}>+91</MenuItem>
-                      <MenuItem value={+862}>+862</MenuItem>
-                      <MenuItem value={+99}>+99</MenuItem>
-                      <MenuItem value={+7432}>+7432</MenuItem>
+                      <MenuItem value={+1}>+1(USA)</MenuItem>
+                      <MenuItem value={+1}>+1(Canada)</MenuItem>
+                      <MenuItem value={+52}>+52(Mexico)</MenuItem>
                     </Select>
                   </FormControl>
                 </Box>

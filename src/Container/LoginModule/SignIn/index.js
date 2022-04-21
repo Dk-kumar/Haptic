@@ -4,6 +4,9 @@ import InputField from "../../../Component/Fields";
 import { formButtonEnable } from "../../../Shared/Validator";
 import { visibilityIcon, visibilityOffIcon } from "../../../Shared/Icons";
 import { Values } from "../../../Constants";
+import googleIcon from "../../../Shared/Images/googleIcon.png";
+import facbookIcon from "../../../Shared/Images/facbookIcon.png";
+import githubIcon from "../../../Shared/Images/githubIcon.png"
 import "./signInForm.style.css";
 
 const SignInForm = () => {
@@ -87,32 +90,48 @@ const SignInForm = () => {
 
   const socialLogin = () => {
     return (
-      <div className="socialLogin-container">
-        <InputField
-          type="button"
-          value={Values.GoogleLogin}
-          placeholder=""
-          className="google-login"
-        />
-        <InputField
-          type="button"
-          value={Values.FaceBookLogin}
-          placeholder=""
-          className="google-login"
-        />
-        <InputField
-          type="button"
-          value={Values.GitHubLogin}
-          placeholder=""
-          className="github-login"
-        />
+      <div className="btn-icons">
+        <div className="google-icon">
+          <img src={googleIcon} alt="icon" />
+        </div>
+        <div className="fb-icon">
+          <img src={facbookIcon} alt="icon" />
+        </div>
+        <div className="github-icon">
+          <img src={githubIcon} alt="icon" />
+        </div>
       </div>
     );
   };
 
+  // const socialLogin = () => {
+  //   return (
+  //     <div className="socialLogin-container">
+  //       <InputField
+  //         type="button"
+  //         value={Values.GoogleLogin}
+  //         placeholder=""
+  //         className="google-login"
+  //       />
+  //       <InputField
+  //         type="button"
+  //         value={Values.FaceBookLogin}
+  //         placeholder=""
+  //         className="google-login"
+  //       />
+  //       <InputField
+  //         type="button"
+  //         value={Values.GitHubLogin}
+  //         placeholder=""
+  //         className="github-login"
+  //       />
+  //     </div>
+  //   );
+  // };
+
   return (
     <>
-      <form className="form-container">
+      <form className="sigin-form-container">
         {formHeader()}
         <div className="form-wrapper">
           {loginOptions()}
@@ -159,7 +178,7 @@ const SignInForm = () => {
               {Values.SignIn}
             </button>
           </div>
-          <div className="lines">
+          <div className="signin-line">
             <div className="line-left"></div>
             <span>OR</span>
             <div className="line-right"></div>
