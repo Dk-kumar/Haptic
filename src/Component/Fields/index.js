@@ -8,7 +8,6 @@ const InputField = ({
   length,
   className,
   required,
-  placeholder,
   type,
   onChange,
   onBlur,
@@ -26,7 +25,6 @@ const InputField = ({
         name={name}
         maxLength={length && length}
         className="form-control"
-        placeholder={placeholder}
         onChange={onChange}
         onBlur={onBlur ? (e) => onBlur(e) : null}
       />

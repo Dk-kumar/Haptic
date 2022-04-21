@@ -6,25 +6,17 @@ import { visibilityIcon, visibilityOffIcon } from "../../../Shared/Icons";
 import { Values } from "../../../Constants";
 import "./signInForm.style.css";
 
-import Box from "@mui/material/Box";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-
 const SignInForm = () => {
   let initialState = {
-    Email: "",
-    Username: "",
-    CountryCode: "",
-    PhoneNumber: "",
+    UserId: "",
     Password: "",
   };
-  
+
   const [inputValue, setInputValue] = useState(initialState);
   let [isDisabled, setDisabled] = useState(true);
   let [isShowPassword, setShowPassword] = useState(false);
 
-  const { Email, Username, CountryCode, PhoneNumber, Password } = inputValue;
+  const { UserId, Password } = inputValue;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,8 +35,52 @@ const SignInForm = () => {
       <div className="header-container">
         <h2>{Values.SignIn}</h2>
         <span className="header-content">
-          {Values.SignUpLink} <Link to="/">{Values.SignUp}</Link>
+          {Values.SignUpLink} <Link to="/signup">{Values.SignUp}</Link>
         </span>
+      </div>
+    );
+  };
+
+  const loginOptions = () => {
+    return (
+      <div className="login-option-container">
+        <div>
+          <p>Select preffered sign in option</p>
+        </div>
+        <div className="login-options">
+          <InputField
+            type="checkbox"
+            value="Email"
+            className="login-option"
+            label={Values.Email}
+          />
+          <InputField
+            type="checkbox"
+            value="Phone"
+            className="login-option"
+            label={Values.PhoneNumber}
+          />
+          <InputField
+            type="checkbox"
+            value="Username"
+            className="login-option"
+            label={Values.UserName}
+          />
+        </div>
+      </div>
+    );
+  };
+
+  const bottomLinks = () => {
+    return (
+      <div className="bottom-links">
+        <InputField
+          type="checkbox"
+          value=""
+          className="remember-me"
+          label={Values.RememberMe}
+        />
+        <p className="forgot-password">{Values.ForgotPassword}</p>
       </div>
     );
   };
@@ -74,37 +110,19 @@ const SignInForm = () => {
     );
   };
 
-  const siginUpLink = () => {
-    return (
-      <span className="header-content">
-        {Values.SignUpLink} <Link to="/">{Values.SignUp}</Link>
-      </span>
-    );
-  };
-
   return (
     <>
       <form className="form-container">
         {formHeader()}
         <div className="form-wrapper">
+          {loginOptions()}
           <div className="form-body">
             <div className="email-wrapper">
               <InputField
                 type="text"
-                value={Username}
-                placeholder={Values.UserName}
-                label={Values.UserName}
-                name="Username"
-                className="inputField-body"
-                required={true}
-                onChange={handleChange}
-              />
-              <InputField
-                type="email"
-                value={Email}
-                placeholder={Values.Email}
-                label={Values.Email}
-                name={Values.Email}
+                value={UserId}
+                label={Values.UserId}
+                name={"UserId"}
                 className="inputField-body"
                 required={true}
                 onChange={handleChange}
@@ -112,59 +130,6 @@ const SignInForm = () => {
             </div>
           </div>
           <div className="form-bottom">
-            <InputField
-              type="text"
-              value={CountryCode}
-              placeholder=""
-              label={Values.CountryCode}
-              name={Values.NameCountryCode}
-              className="inputField-bottom"
-              required={true}
-              onChange={handleChange}
-            />
-            <div className="code-wrapper">
-              <Box
-                sx={{ m: 1, flexBasis: "24%", margin: "1rem 0rem 0rem 0rem" }}
-                size="small"
-              >
-                <FormControl fullWidth>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={CountryCode}
-                    name={Values.NameCountryCode}
-                    label=""
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={+91}>+91</MenuItem>
-                    <MenuItem value={+862}>+862</MenuItem>
-                    <MenuItem value={+99}>+99</MenuItem>
-                    <MenuItem value={+7432}>+7432</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-              <div className="phone-wrapper">
-                <InputField
-                  type="text"
-                  value={PhoneNumber}
-                  placeholder={Values.PhoneNumber}
-                  label={Values.PhoneNumber}
-                  name={Values.NamePhoneNumber}
-                  length="10"
-                  className="inputField-bottom"
-                  onChange={handleChange}
-                />
-                <InputField
-                  type="checkbox"
-                  name={Values.Email}
-                  className="inputField-checkbox"
-                  onChange={handleChange}
-                />
-                <p className="phone-description">
-                  {Values.PholePredefinedOption}
-                </p>
-              </div>
-            </div>
             <div className="password-wrapper">
               <InputField
                 type={isShowPassword ? "text" : "password"}
@@ -184,6 +149,7 @@ const SignInForm = () => {
               </i>
             </div>
           </div>
+          {bottomLinks()}
           <div className="btn-submit">
             <button
               type="submit"
@@ -200,7 +166,6 @@ const SignInForm = () => {
           </div>
           {socialLogin()}
         </div>
-        <div className="signUp-link">{siginUpLink()}</div>
       </form>
     </>
   );

@@ -169,7 +169,7 @@ const SignUpForm = () => {
       <div className="header-container">
         <h2>{Values.SignUp}</h2>
         <span className="header-content">
-          {Values.SignInLink} <Link to="/signin">{Values.SignIn}</Link>
+          {Values.SignInLink} <Link to="/">{Values.SignIn}</Link>
         </span>
       </div>
     );
@@ -200,13 +200,6 @@ const SignUpForm = () => {
     );
   };
 
-  const siginInLink = () => {
-    return (
-      <span className="header-content">
-        {Values.SignInLink} <Link to="/signin">{Values.SignIn}</Link>
-      </span>
-    );
-  };
 
   return (
     <>
@@ -217,7 +210,6 @@ const SignUpForm = () => {
             <InputField
               type="text"
               value={Suffix}
-              placeholder={Values.Suffix}
               label={Values.Suffix}
               name={Values.Suffix}
               className="inputField-header"
@@ -226,7 +218,6 @@ const SignUpForm = () => {
             <InputField
               type="text"
               value={Title}
-              placeholder={Values.Title}
               label={Values.Title}
               name={Values.Title}
               className="inputField-header"
@@ -236,7 +227,6 @@ const SignUpForm = () => {
               <InputField
                 type="text"
                 value={Firstname}
-                placeholder={Values.FirstName}
                 label={Values.FirstName}
                 name={Values.FirstName}
                 className="inputField-header"
@@ -254,7 +244,6 @@ const SignUpForm = () => {
               <InputField
                 type="text"
                 value={Lastname}
-                placeholder={Values.LastName}
                 label={Values.LastName}
                 name={Values.LastName}
                 className="inputField-header"
@@ -275,7 +264,6 @@ const SignUpForm = () => {
                 <InputField
                   type="email"
                   value={Email}
-                  placeholder={Values.Email}
                   label={Values.Email}
                   name={Values.Email}
                   className="inputField-body"
@@ -290,9 +278,6 @@ const SignUpForm = () => {
                   onChange={handleChange}
                 />
               </div>
-              <p className="email-description">
-                {Values.EmailPredefinedOption}
-              </p>
               <div className="error-message">
                 {emailError === "visible" && Email !== "" && (
                   <span>{Values.EmailTooltip}</span>
@@ -301,12 +286,14 @@ const SignUpForm = () => {
                   <span>{Values.Required}</span>
                 )}
               </div>
+              <p className="signUp email-description">
+                {Values.EmailPredefinedOption}
+              </p>
             </div>
             <div>
               <InputField
                 type="text"
                 value={Username}
-                placeholder={Values.UserName}
                 label={Values.UserName}
                 name={Values.UserName}
                 className="inputField-body"
@@ -322,55 +309,40 @@ const SignUpForm = () => {
             </div>
           </div>
           <div className="form-bottom">
-            <div>
-              <InputField
-                type="text"
-                value={CountryCode}
-                placeholder=""
-                label={Values.CountryCode}
-                name={Values.NameCountryCode}
-                className="inputField-bottom"
-                required={true}
-                onChange={handleChange}
-                onBlur={() => handleValidation(Values.CountryCode)}
-              />
-              <div className="error-message">
-                {CountryCode === "" && validation.CountryCode === true && (
-                  <span>Select country code</span>
-                )}
-              </div>
-            </div>
             <div className="code-wrapper">
-              <Box
-                sx={{ m: 1, flexBasis: "24%", margin: "1rem 0rem 0rem 0rem" }}
-                size="small"
-              >
-                <FormControl fullWidth>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={CountryCode}
-                    label=""
-                    name={Values.NameCountryCode}
-                    onChange={handleChange}
-                  >
-                    <MenuItem value={+91}>+91</MenuItem>
-                    <MenuItem value={+862}>+862</MenuItem>
-                    <MenuItem value={+99}>+99</MenuItem>
-                    <MenuItem value={+7432}>+7432</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
+              <div className="countrycode-wrapper">
+                <label>Country Code</label>
+                <Box
+                  sx={{ m: 1, flexBasis: "24%", margin: "1rem 0rem 0rem 0rem" }}
+                  size="small"
+                >
+                  <FormControl fullWidth>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={CountryCode}
+                      label=""
+                      name={Values.NameCountryCode}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value={+91}>+91</MenuItem>
+                      <MenuItem value={+862}>+862</MenuItem>
+                      <MenuItem value={+99}>+99</MenuItem>
+                      <MenuItem value={+7432}>+7432</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </div>
               <div className="phone-wrapper">
                 <div className="phone-chekbox">
                   <InputField
                     type="text"
                     value={PhoneNumber}
-                    placeholder={Values.PhoneNumber}
                     label={Values.PhoneNumber}
                     name={Values.NamePhoneNumber}
                     length="10"
-                    className="inputField-bottom"
+                    required={true}
+                    className="inputField-bottom phoneNumberField"
                     onChange={handleChange}
                     onBlur={() => handleValidation(Values.PhoneNumber)}
                   />
@@ -381,9 +353,6 @@ const SignUpForm = () => {
                     onChange={handleChange}
                   />
                 </div>
-                <p className="phone-description">
-                  {Values.PholePredefinedOption}
-                </p>
                 <div className="error-message">
                   {phoneNumberError === "visible" && PhoneNumber !== "" && (
                     <span>{Values.MobileValidationError}</span>
@@ -392,43 +361,46 @@ const SignUpForm = () => {
                     <span>{Values.Required}</span>
                   )}
                 </div>
+                <p className="signUp phone-description">
+                  {Values.PholePredefinedOption}
+                </p>
               </div>
             </div>
-            <div className="password-wrapper">
-              <InputField
-                type={passwordField ? "text" : "password"}
-                value={Password}
-                placeholder={Values.PasswordPlaceholder}
-                label={Values.Password}
-                name={Values.NamePassword}
-                className="inputField-bottom"
-                required={true}
-                onChange={handleChange}
-              />
-              <i
-                onClick={() => handelIcon("password")}
-                className="visibility-icon"
-              >
-                {passwordField ? visibilityIcon() : visibilityOffIcon()}
-              </i>
-            </div>
-            <div className="password-wrapper">
-              <InputField
-                type={confirmPasswordField ? "text" : "password"}
-                value={ConfirmPassword}
-                placeholder={Values.RepeatPassowrdPlaceholder}
-                label={Values.ConfirmPassword}
-                name={Values.NameConfirmPassword}
-                className="inputField-bottom"
-                required={true}
-                onChange={handleChange}
-              />
-              <i
-                onClick={() => handelIcon("confirmPassword")}
-                className="visibility-icon"
-              >
-                {confirmPasswordField ? visibilityIcon() : visibilityOffIcon()}
-              </i>
+            <div className="passwordField">
+              <div className="password-wrapper">
+                <InputField
+                  type={passwordField ? "text" : "password"}
+                  value={Password}
+                  label={Values.Password}
+                  name={Values.NamePassword}
+                  className="inputField-bottom"
+                  required={true}
+                  onChange={handleChange}
+                />
+                <i
+                  onClick={() => handelIcon("password")}
+                  className="visibility-icon"
+                >
+                  {passwordField ? visibilityIcon() : visibilityOffIcon()}
+                </i>
+              </div>
+              <div className="password-wrapper">
+                <InputField
+                  type={confirmPasswordField ? "text" : "password"}
+                  value={ConfirmPassword}
+                  label={Values.ConfirmPassword}
+                  name={Values.NameConfirmPassword}
+                  className="inputField-bottom"
+                  required={true}
+                  onChange={handleChange}
+                />
+                <i
+                  onClick={() => handelIcon("confirmPassword")}
+                  className="visibility-icon"
+                >
+                  {confirmPasswordField ? visibilityIcon() : visibilityOffIcon()}
+                </i>
+              </div>
             </div>
           </div>
           <div className="btn-submit">
@@ -447,7 +419,6 @@ const SignUpForm = () => {
           </div>
           {socialLogin()}
         </div>
-        <div className="signIn-link">{siginInLink()}</div>
       </form>
     </>
   );

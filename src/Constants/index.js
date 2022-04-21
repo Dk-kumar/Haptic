@@ -1,8 +1,9 @@
 export const Values = {
-  SignUpLink: "Don't have a account",
+  SignUpLink: "Don't have a account?",
   SignInLink: "have an account?",
   SignUp: "Sign Up",
   SignIn: "Sign In",
+  UserId: "User ID",
   EmailPredefinedOption:
     "Click the checkbox to use email us predefined sign in option",
   PholePredefinedOption:
@@ -23,6 +24,8 @@ export const Values = {
   GoogleLogin: "Sign Up with Google",
   FaceBookLogin: "Sign Up with Facebook",
   GitHubLogin: "Sign Up with Github",
+  ForgotPassword: "Forgot password?",
+  RememberMe: "Remember me",
 
   //Tooltip content
   EmailTooltip: "Make sure your email is valid.",
