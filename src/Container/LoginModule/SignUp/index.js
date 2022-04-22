@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import InputField from "../../../Component/Fields";
 import { visibilityIcon, visibilityOffIcon } from "../../../Shared/Icons";
 import { Values } from "../../../Constants";
+import { apiEndPoint  } from "../../../Constants/apiEndPointConstants";
 import {
   emailValidator,
   phoneNumberValidator,
@@ -10,6 +11,9 @@ import {
   passwordValidation,
 } from "../../../Shared/Validator";
 import "./signUpForm.style.css";
+
+import { request } from "../../../Http/request";
+import { postOptions } from "../../../Http/apiHeaderConfig";
 
 //Meterial UI components
 import Box from "@mui/material/Box";
@@ -108,7 +112,6 @@ const SignUpForm = () => {
   };
 
   const handelCheckbox = (e, type) => {
-    debugger
     setInputValue({
       ...inputValue,
       [type]: e.target.checked,
@@ -164,13 +167,38 @@ const SignUpForm = () => {
     }
   };
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = async () => {
     let isPasswordMatch = passwordValidation(inputValue);
     setValidation({
       ...validation,
       isPasswordMatch: isPasswordMatch,
     });
+
+    const obj = {
+      suffix: Suffix,
+      title: Title,
+      firstName: Firstname,
+      lastName: Lastname,
+      username: Username,
+      password: Password,
+      confirmPassword: ConfirmPassword,
+      emails: [{ emailAddress: Email, isLoginCriteria: isEmailChecked }],
+      phones: [
+        {
+          phoneNumber: PhoneNumber,
+          countryCode: CountryCode,
+          isLoginCriteria: isNumberChecked,
+        },
+      ],
+    };
+
+    const result = await request(
+      apiEndPoint.signup,
+      postOptions(obj),
+    );
+
+    if (result) { alert('success')}
+
   };
 
   const formHeader = () => {
@@ -457,7 +485,7 @@ const SignUpForm = () => {
           </div>
           <div className="btn-submit">
             <button
-              type="submit"
+              type="button"
               disabled={isDisabled}
               className={isDisabled ? "disabled-button" : "form-submit"}
               onClick={onSubmit}
