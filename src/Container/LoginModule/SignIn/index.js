@@ -18,7 +18,6 @@ const SignInForm = () => {
   let initialValidation = {
     UserId: false,
     Password: false,
-    emailError: false,
   };
 
   const [inputValue, setInputValue] = useState(initialState);
@@ -34,6 +33,7 @@ const SignInForm = () => {
       ...inputValue,
       [name]: value,
     });
+    console.log(inputValue)
     let showBtn = formButtonEnable(inputValue);
     if (!showBtn) {
       return setDisabled(false);
@@ -42,11 +42,11 @@ const SignInForm = () => {
   };
 
   const handleValidation = (type) => {
-    if (type === Values.Email) {
+    if (type === "UserId") {
       if (!emailValidator(UserId)) {
         return setValidation({
           ...validation,
-          UserId: true,
+          [type]: true,
         });
       }
     }
@@ -150,7 +150,7 @@ const SignInForm = () => {
                 required={true}
                 onChange={handleChange}
                 border={validation.UserId}
-                onBlur={() => handleValidation(Values.Email)}
+                onBlur={() => handleValidation("UserId")}
               />
             </div>
             <div className="error-message">

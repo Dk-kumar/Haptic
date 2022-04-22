@@ -33,9 +33,11 @@ const SignUpForm = () => {
     Firstname: "",
     Lastname: "",
     Email: "",
+    isEmailChecked: false,
     Username: "",
     CountryCode: "",
     PhoneNumber: "",
+    isNumberChecked: false,
     Password: "",
     ConfirmPassword: "",
   };
@@ -74,9 +76,11 @@ const SignUpForm = () => {
     Firstname,
     Lastname,
     Email,
+    isEmailChecked,
     Username,
     CountryCode,
     PhoneNumber,
+    isNumberChecked,
     Password,
     ConfirmPassword,
   } = inputValue;
@@ -103,6 +107,22 @@ const SignUpForm = () => {
     }
   };
 
+  const handelCheckbox = (e, type) => {
+    debugger
+    setInputValue({
+      ...inputValue,
+      [type]: e.target.checked,
+    });
+    console.log(inputValue)
+  }
+
+  const formValidation = (field) => {
+    setValidation({
+      ...validation,
+      [field]: true,
+    });
+  }
+
   const handleValidation = (type) => {
     const { Email, PhoneNumber } = inputValue;
     if (type === Values.Email) {
@@ -122,48 +142,7 @@ const SignUpForm = () => {
         });
       }
     }
-    if (type === Values.FirstName) {
-      return setValidation({
-        ...validation,
-        Firstname: true,
-      });
-    }
-
-    if (type === Values.LastName) {
-      return setValidation({
-        ...validation,
-        Lastname: true,
-      });
-    }
-
-    if (type === Values.UserName) {
-      return setValidation({
-        ...validation,
-        Username: true,
-      });
-    }
-
-    if (type === Values.CountryCode) {
-      return setValidation({
-        ...validation,
-        CountryCode: true,
-      });
-    }
-
-    if (type === Values.Password) {
-      return setValidation({
-        ...validation,
-        Password: true,
-      });
-    }
-
-    if (type === Values.ConfirmPassword) {
-      return setValidation({
-        ...validation,
-        ConfirmPassword: true,
-      });
-    }
-
+  
     setTooltip({
       ...isShowTooltip,
       emailError: "hidden",
@@ -262,7 +241,7 @@ const SignUpForm = () => {
                 onChange={handleChange}
                 required={true}
                 border={validation.Firstname && Firstname === "" ? true : false}
-                onBlur={() => handleValidation(Values.FirstName)}
+                onBlur={() => formValidation(Values.FirstName)}
               />
               <div className="error-message">
                 {Firstname === "" && validation.Firstname && (
@@ -280,7 +259,7 @@ const SignUpForm = () => {
                 onChange={handleChange}
                 required={true}
                 border={validation.Lastname && Lastname === "" ? true : false}
-                onBlur={() => handleValidation(Values.LastName)}
+                onBlur={() => formValidation(Values.LastName)}
               />
               <div className="error-message">
                 {Lastname === "" && validation.Lastname && (
@@ -305,9 +284,10 @@ const SignUpForm = () => {
                 />
                 <InputField
                   type="checkbox"
-                  name={Values.Email}
+                  name={''}
+                  checked={isEmailChecked}
                   className="inputField-checkbox"
-                  onChange={handleChange}
+                  onChange={ (e) => handelCheckbox(e, 'isEmailChecked')}
                 />
               </div>
               <div className="error-message">
@@ -337,7 +317,7 @@ const SignUpForm = () => {
                     : false
                 }
                 onChange={handleChange}
-                onBlur={() => handleValidation(Values.UserName)}
+                onBlur={() => formValidation(Values.UserName)}
               />
               <div className="error-message">
                 {Username === "" && validation.Username && (
@@ -365,7 +345,7 @@ const SignUpForm = () => {
                       label=""
                       name={Values.NameCountryCode}
                       onChange={handleChange}
-                      onBlur={() => handleValidation(Values.CountryCode)}
+                      onBlur={() => formValidation("CountryCode")}
                     >
                       <MenuItem value={+1}>+1(USA)</MenuItem>
                       <MenuItem value={+1}>+1(Canada)</MenuItem>
@@ -391,9 +371,9 @@ const SignUpForm = () => {
                   />
                   <InputField
                     type="checkbox"
-                    name={Values.Email}
+                    checked={isNumberChecked}
                     className="inputField-checkbox"
-                    onChange={handleChange}
+                    onChange={(e) => handelCheckbox(e, 'isNumberChecked')}
                   />
                 </div>
                 <div className="error-message">
@@ -423,7 +403,7 @@ const SignUpForm = () => {
                       validation.Password && Password === "" ? true : false
                     }
                     onChange={handleChange}
-                    onBlur={() => handleValidation(Values.Password)}
+                    onBlur={() => formValidation(Values.Password)}
                   />
                   <i
                     onClick={() => handelIcon("password")}
@@ -453,7 +433,7 @@ const SignUpForm = () => {
                         : false
                     }
                     onChange={handleChange}
-                    onBlur={() => handleValidation(Values.ConfirmPassword)}
+                    onBlur={() => formValidation("ConfirmPassword")}
                   />
                   <i
                     onClick={() => handelIcon("confirmPassword")}
