@@ -266,7 +266,7 @@ const SignUpForm = () => {
               />
               <div className="error-message">
                 {Firstname === "" && validation.Firstname && (
-                  <span>{Values.FirstName}</span>
+                  <span>{Values.FirstNameError}</span>
                 )}
               </div>
             </div>
