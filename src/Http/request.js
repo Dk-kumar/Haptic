@@ -18,5 +18,5 @@ export function request(url, options) {
         return fetch(`${baseURL+url}`, options)
         .then(checkStatus)
         .then(parseJSON)
-        .catch((error) => { throw new Error(error) })
+        .catch((error) => { return new Error(error) })
 }

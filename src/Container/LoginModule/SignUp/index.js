@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import InputField from "../../../Component/Fields";
 import { visibilityIcon, visibilityOffIcon } from "../../../Shared/Icons";
 import { Values } from "../../../Constants";
@@ -22,7 +22,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import FormHelperText from "@mui/material/FormHelperText"
 
-const SignUpForm = () => {
+const SignUpForm = withRouter(({history, props}) => {
+
   const handelFields = () => {
     if (window.innerWidth > 776) {
       return {
@@ -97,10 +98,12 @@ const SignUpForm = () => {
     if (name === "PhoneNumber") {
       if (isNaN(value)) return false;
     }
+    debugger
     setInputValue({
       ...inputValue,
       [name]: value,
     });
+    console.log(inputValue)
     let showBtn = formButtonEnable(inputValue);
     if (
       showBtn === false &&
@@ -191,13 +194,15 @@ const SignUpForm = () => {
         },
       ],
     };
-
+    history.push('/signin');
     const result = await request(
       apiEndPoint.signup,
       postOptions(obj),
     );
+    console.log(props)
 
     if (result) { alert('success')}
+    
 
   };
 
@@ -206,7 +211,7 @@ const SignUpForm = () => {
       <div className="header-container">
         <h2>{Values.SignUp}</h2>
         <span className="header-content">
-          {Values.SignInLink} <Link to="/">{Values.SignIn}</Link>
+          {Values.SignInLink} <Link to="/signin">{Values.SignIn}</Link>
         </span>
       </div>
     );
@@ -338,20 +343,20 @@ const SignUpForm = () => {
                 name={Values.UserName}
                 className="inputField-body"
                 required={true}
+                onChange={handleChange}
                 border={
                   (validation.Username && Username === "") ||
-                  (!(Username.length > 6) && Username !== "")
+                  (!(Username.length >= 6) && Username !== "" && validation.Username)
                     ? true
                     : false
                 }
-                onChange={handleChange}
                 onBlur={() => formValidation(Values.UserName)}
               />
               <div className="error-message">
                 {Username === "" && validation.Username && (
                   <span>{Values.UserNameError}</span>
                 )}
-                {!(Username.length > 6) &&
+                {!(Username.length >= 6) &&
                   Username !== "" &&
                   validation.Username && <span>{Values.UserNameMaxError}</span>}
               </div>
@@ -503,6 +508,6 @@ const SignUpForm = () => {
       </form>
     </>
   );
-};
+});
 
 export default SignUpForm;
