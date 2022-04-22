@@ -40,6 +40,8 @@ export const Values = {
   PasswordError: "Password is required",
   ConformPasswordError: "Confirm password is required",
   IsPasswordMatch: "Password must match",
+  CountryCodeError: "Select country code",
+  PhoneError: "Number is required",
   //Name
   NameCountryCode: "CountryCode",
   NamePhoneNumber: "PhoneNumber",

@@ -16,6 +16,7 @@ import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import FormHelperText from "@mui/material/FormHelperText"
 
 const SignUpForm = () => {
   const handelFields = () => {
@@ -356,7 +357,7 @@ const SignUpForm = () => {
                   sx={{ m: 1, flexBasis: "24%", margin: "1rem 0rem 0rem 0rem" }}
                   size="small"
                 >
-                  <FormControl fullWidth>
+                  <FormControl fullWidth error={validation.CountryCode && CountryCode === ""}>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
@@ -364,11 +365,13 @@ const SignUpForm = () => {
                       label=""
                       name={Values.NameCountryCode}
                       onChange={handleChange}
+                      onBlur={() => handleValidation(Values.CountryCode)}
                     >
                       <MenuItem value={+1}>+1(USA)</MenuItem>
                       <MenuItem value={+1}>+1(Canada)</MenuItem>
                       <MenuItem value={+52}>+52(Mexico)</MenuItem>
                     </Select>
+                    {validation.CountryCode && CountryCode === "" && <FormHelperText>{Values.CountryCodeError}</FormHelperText>}
                   </FormControl>
                 </Box>
               </div>
@@ -398,7 +401,7 @@ const SignUpForm = () => {
                     <span>{Values.MobileValidationError}</span>
                   )}
                   {phoneNumberError === "visible" && PhoneNumber === "" && (
-                    <span>{Values.Required}</span>
+                    <span>{Values.PhoneError}</span>
                   )}
                 </div>
                 <p className="signUp phone-description">

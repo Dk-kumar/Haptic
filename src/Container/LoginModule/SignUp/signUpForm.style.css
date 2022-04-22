@@ -77,6 +77,18 @@
   color: red;
 }
 
+.css-1wc848c-MuiFormHelperText-root {
+  margin-left: 2px !important;
+  font-weight: initial !important;
+  font-size: 15px !important;
+  line-height: initial !important;
+  letter-spacing: initial !important;
+}
+
+.css-1wc848c-MuiFormHelperText-root.Mui-error {
+  color: red !important;
+}
+
 .css-1uxzw38 {
   flex-basis: 37% !important;
   margin: 0 !important;
